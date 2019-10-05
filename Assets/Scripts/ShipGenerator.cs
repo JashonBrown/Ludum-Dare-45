@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class ShipGenerator : MonoBehaviour {
 
-    public List<TileData> tileset;
     
     private TileData[,] _player;
     private Tile[,] _enemy;
@@ -14,33 +13,22 @@ public class ShipGenerator : MonoBehaviour {
     
     public GameObject wallPrefab;
     public GameObject cannonPrefab;
+    public GameObject playerStartPosition;
+    public GameObject enemyStartPosition;
 
     void Start()
     {
         GenerateTiles();
 
         var tiles = DataManager.Instance.PlayerRaft.Tiles;
-        InstantiateTiles(tiles, _playerObjects, -15);
+        InstantiateTiles(tiles, _playerObjects, playerStartPosition.transform);
         AttachTileHinges(_playerObjects);
         
-        InstantiateTiles(_enemy, _enemyObjects, 15);
+        InstantiateTiles(tiles, _enemyObjects, enemyStartPosition.transform);
         AttachTileHinges(_enemyObjects);
     }
 
     private void GenerateTiles() {
-        _player = new[,]
-        {
-            {tileset[0], tileset[0], tileset[0], tileset[0], tileset[0], tileset[0], tileset[0], tileset[0], tileset[0], tileset[0]},
-            {tileset[0], null, null, tileset[0], null, null, null, null, null, null},
-            {tileset[0], null, null, tileset[0], tileset[1], null, null, null, null, null},
-            {tileset[0], tileset[0], tileset[0], tileset[0], null, null, null, null, null, null},
-            {tileset[0], null, null, null, null, null, null, null, null, null},
-            {tileset[0], null, null, null, null, null, null, null, null, null},
-            {tileset[0], null, null, null, null, null, null, null, null, null},
-            {tileset[0], tileset[1], null, null, null, null, null, null, null, null},
-            {tileset[0], null, null, null, null, null, null, null, null, null},
-            {tileset[0], null, null, null, null, null, null, null, null, null},
-        };
         
         _playerObjects = new GameObject[,]
         {
@@ -54,24 +42,6 @@ public class ShipGenerator : MonoBehaviour {
             {null, null, null, null, null, null, null, null, null, null},
             {null, null, null, null, null, null, null, null, null, null},
             {null, null, null, null, null, null, null, null, null, null}  
-        };
-
-        
-        var tile0 = new Tile(tileset[0].Type, tileset[0].Health , tileset[0].Sprite);
-        var tile2 = new Tile(tileset[2].Type, tileset[2].Health , tileset[2].Sprite);
-
-        _enemy = new[,]
-        {
-            {tile0, null, null, null, null, null, null, null, null, null},
-            {tile0, null, null, null, null, null, null, null, null, null},
-            {tile0, tile0, tile0, tile0, tile2, null, null, null, null, null},
-            {tile0, tile0, tile0, tile0, tile0, null, null, null, null, null},
-            {tile0, null, null, null, null, null, null, null, null, null},
-            {tile0, tile0, tile0, tile0, tile0, tile2, null, null, null, null},
-            {tile0, tile0, tile0, tile0, tile0, tile0, null, null, null, null},
-            {tile0, null, null, null, null, null, null, null, null, null},
-            {tile0, null, null, null, null, null, null, null, null, null},
-            {tile0, null, null, null, null, null, null, null, null, null},
         };
 
         _enemyObjects = new GameObject[,]
@@ -90,7 +60,7 @@ public class ShipGenerator : MonoBehaviour {
         
     }
 
-    private void InstantiateTiles(Tile[,] tiles, GameObject[,] tileObjects, int xOffset = 0)
+    private void InstantiateTiles(Tile[,] tiles, GameObject[,] tileObjects, Transform offset)
     {
         for (var i = 0; i < tiles.GetLength(0); i++)
         {
@@ -110,7 +80,7 @@ public class ShipGenerator : MonoBehaviour {
 
                     //var rt = (RectTransform)prefab.transform;
                     //var prefabWdith = rt.rect.width;
-                    tileObjects[i, j] = Instantiate(prefab, new Vector3(i + xOffset, j, 0), Quaternion.identity);
+                    tileObjects[i, j] = Instantiate(prefab, new Vector3(i + offset.position.x, j + offset.position.y, 0), Quaternion.identity);
                     tileObjects[i, j].GetComponent<TileScript>().Init(tile);
                 }
             }
