@@ -17,6 +17,10 @@ MonoBehaviour:
   - Custom
   - General
   - Main Menu
+  - Ship Editor
+  - Game
   Categories:
+  - {fileID: 11400000, guid: 78afa3c22cbe58b41a4a66c49df26e6c, type: 2}
   - {fileID: 11400000, guid: 9e51f48665f250247994f31e249a0655, type: 2}
   - {fileID: 11400000, guid: 835d71c96994a7640b6741dc256b1777, type: 2}
+  - {fileID: 11400000, guid: 0826fe77307e58f44ad877c7f4b0dc9e, type: 2}

@@ -15,7 +15,5 @@ MonoBehaviour:
   CategoryName: Main Menu
   DatabaseType: 2
   Names:
-  - Landing
-  - Second
-  - Ship Editor
-  - Ship Editor Grid
+  - Credits
+  - Home

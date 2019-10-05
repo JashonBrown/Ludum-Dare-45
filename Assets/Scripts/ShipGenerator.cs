@@ -88,7 +88,8 @@ public class ShipGenerator : MonoBehaviour {
         
     }
 
-    private void InstantiateTiles(Tile[,] tiles, GameObject[,] tileObjects, int xOffset = 0) {
+    private void InstantiateTiles(Tile[,] tiles, GameObject[,] tileObjects, int xOffset = 0)
+    {
         for (var i = 0; i < tiles.GetLength(0); i++)
         {
             for (var j = 0; j < tiles.GetLength(0); j++)
@@ -104,7 +105,9 @@ public class ShipGenerator : MonoBehaviour {
                     else {
                         prefab = cannonPrefab;
                     }
-                    
+
+                    //var rt = (RectTransform)prefab.transform;
+                    //var prefabWdith = rt.rect.width;
                     tileObjects[i, j] = Instantiate(prefab, new Vector3(i + xOffset, j, 0), Quaternion.identity);
                     tileObjects[i, j].GetComponent<TileScript>().Init(tile);
                 }
