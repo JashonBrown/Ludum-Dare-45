@@ -80,7 +80,7 @@ public class ShipGenerator : MonoBehaviour {
 
                     //var rt = (RectTransform)prefab.transform;
                     //var prefabWdith = rt.rect.width;
-                    tileObjects[i, j] = Instantiate(prefab, new Vector3(i + offset.position.x, j + offset.position.y, 0), Quaternion.identity);
+                    tileObjects[i, j] = Instantiate(prefab, new Vector3((i*3) + offset.position.x, (j*3) + offset.position.y, 0), Quaternion.identity);
                     tileObjects[i, j].GetComponent<TileScript>().Init(tile);
                 }
             }
