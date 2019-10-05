@@ -56,22 +56,24 @@ public class ShipGenerator : MonoBehaviour {
             {null, null, null, null, null, null, null, null, null, null}  
         };
 
-        //_enemy = new[,]
-        //{
-        //    {tileset[0], null, null, null, null, null, null, null, null, null},
-        //    {tileset[0], null, null, null, null, null, null, null, null, null},
-        //    {tileset[0], null, null, tileset[0], tileset[2], null, null, null, null, null},
-        //    {tileset[0], tileset[0], tileset[0], tileset[0], tileset[0], null, null, null, null, null},
-        //    {tileset[0], null, null, null, null, null, null, null, null, null},
-        //    {tileset[0], null, null, null, tileset[0], tileset[2], null, null, null, null},
-        //    {tileset[0], tileset[0], tileset[0], tileset[0], tileset[0], tileset[0], null, null, null, null},
-        //    {tileset[0], null, null, null, null, null, null, null, null, null},
-        //    {tileset[0], null, null, null, null, null, null, null, null, null},
-        //    {tileset[0], null, null, null, null, null, null, null, null, null},
-        //};
-
-        _enemy = new Tile[0,0];
         
+        var tile0 = new Tile(tileset[0].Type, tileset[0].Health , tileset[0].Sprite);
+        var tile2 = new Tile(tileset[2].Type, tileset[2].Health , tileset[2].Sprite);
+
+        _enemy = new[,]
+        {
+            {tile0, null, null, null, null, null, null, null, null, null},
+            {tile0, null, null, null, null, null, null, null, null, null},
+            {tile0, tile0, tile0, tile0, tile2, null, null, null, null, null},
+            {tile0, tile0, tile0, tile0, tile0, null, null, null, null, null},
+            {tile0, null, null, null, null, null, null, null, null, null},
+            {tile0, tile0, tile0, tile0, tile0, tile2, null, null, null, null},
+            {tile0, tile0, tile0, tile0, tile0, tile0, null, null, null, null},
+            {tile0, null, null, null, null, null, null, null, null, null},
+            {tile0, null, null, null, null, null, null, null, null, null},
+            {tile0, null, null, null, null, null, null, null, null, null},
+        };
+
         _enemyObjects = new GameObject[,]
         {
             {null, null, null, null, null, null, null, null, null, null},
@@ -92,7 +94,7 @@ public class ShipGenerator : MonoBehaviour {
     {
         for (var i = 0; i < tiles.GetLength(0); i++)
         {
-            for (var j = 0; j < tiles.GetLength(0); j++)
+            for (var j = 0; j < tiles.GetLength(1); j++)
             {
                 var tile = tiles[i, j];
                 if (tile != null)
@@ -117,64 +119,81 @@ public class ShipGenerator : MonoBehaviour {
 
     private void AttachTileHinges(GameObject[,] tileObjects) {
         for (var i = 0; i < tileObjects.GetLength(0); i++) {
-            for (var j = 0; j < tileObjects.GetLength(0); j++) {
+            for (var j = 0; j < tileObjects.GetLength(1); j++) {
                 if (tileObjects[i,j] == null) continue;
                 
                 var hinges = tileObjects[i, j].GetComponents<HingeJoint2D>();
-
+                var tileScript = tileObjects[i, j].GetComponent<TileScript>();
+                
                 try {
-                    if (tileObjects[i - 1, j - 1] != null) {
-                        hinges[0].connectedBody = tileObjects[i - 1, j - 1].GetComponent<Rigidbody2D>();
+                    var obj = tileObjects[i - 1, j - 1];
+                    if (obj != null) {
+                        hinges[0].connectedBody = obj.GetComponent<Rigidbody2D>();
                         hinges[0].enabled = true;
+                        tileScript.AdjacentTileObjects.Add(obj);
                     }
                 } catch(Exception) {}
                 
                 try {
-                    if (tileObjects[i - 1, j] != null) {
-                        hinges[1].connectedBody = tileObjects[i - 1, j].GetComponent<Rigidbody2D>();
+                    var obj = tileObjects[i - 1, j];
+                    if (obj != null) {
+                        hinges[1].connectedBody = obj.GetComponent<Rigidbody2D>();
                         hinges[1].enabled = true;
+                        tileScript.AdjacentTileObjects.Add(obj);
                     }
                 } catch(Exception) {}
                 
                 try {
-                    if (tileObjects[i - 1, j + 1] != null) {
-                        hinges[2].connectedBody = tileObjects[i - 1, j + 1].GetComponent<Rigidbody2D>();
+                    var obj = tileObjects[i - 1, j + 1];
+                    if (obj != null) {
+                        hinges[2].connectedBody = obj.GetComponent<Rigidbody2D>();
                         hinges[2].enabled = true;
+                        tileScript.AdjacentTileObjects.Add(obj);
                     }
                 } catch(Exception) {}
                 
                 try {
-                    if (tileObjects[i, j - 1] != null) {
-                        hinges[3].connectedBody = tileObjects[i, j - 1].GetComponent<Rigidbody2D>();
+                    var obj = tileObjects[i, j - 1];
+                    if (obj != null) {
+                        hinges[3].connectedBody = obj.GetComponent<Rigidbody2D>();
                         hinges[3].enabled = true;
+                        tileScript.AdjacentTileObjects.Add(obj);
                     }
                 } catch(Exception) {}
                 
                 try {
-                    if (tileObjects[i, j + 1] != null) {
-                        hinges[4].connectedBody = tileObjects[i, j + 1].GetComponent<Rigidbody2D>();
+                    var obj = tileObjects[i, j + 1];
+                    if (obj != null) {
+                        hinges[4].connectedBody = obj.GetComponent<Rigidbody2D>();
                         hinges[4].enabled = true;
+                        tileScript.AdjacentTileObjects.Add(obj);
                     }
                 } catch(Exception) {}
                 
                 try {
-                    if (tileObjects[i + 1, j - 1] != null) {
-                        hinges[5].connectedBody = tileObjects[i + 1, j - 1].GetComponent<Rigidbody2D>();
+                    var obj = tileObjects[i + 1, j - 1];
+                    if (obj != null) {
+                        hinges[5].connectedBody = obj.GetComponent<Rigidbody2D>();
                         hinges[5].enabled = true;
+                        tileScript.AdjacentTileObjects.Add(obj);
                     }
                 } catch(Exception) {}
                 
                 try {
-                    if (tileObjects[i + 1, j] != null) {
-                        hinges[6].connectedBody = tileObjects[i + 1, j].GetComponent<Rigidbody2D>();
+                    var obj = tileObjects[i + 1, j];
+                    if (obj != null) {
+                        hinges[6].connectedBody = obj.GetComponent<Rigidbody2D>();
                         hinges[6].enabled = true;
+                        tileScript.AdjacentTileObjects.Add(obj);
                     }
                 } catch(Exception) {}
                 
                 try {
-                    if (tileObjects[i + 1, j + 1] != null) {
-                        hinges[7].connectedBody = tileObjects[i + 1, j + 1].GetComponent<Rigidbody2D>();
+                    var obj = tileObjects[i + 1, j + 1];
+                    if (obj != null) {
+                        hinges[7].connectedBody = obj.GetComponent<Rigidbody2D>();
                         hinges[7].enabled = true;
+                        tileScript.AdjacentTileObjects.Add(obj);
                     }
                 } catch(Exception) {}
             }

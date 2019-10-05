@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Sirenix.Utilities;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ namespace LudumDare {
     {
         public Tile Tile;
         public int health;
+        public List<GameObject> AdjacentTileObjects;
         
         public void Init(Tile tile)
         {
@@ -25,8 +27,8 @@ namespace LudumDare {
         }
 
         private void OnCollisionEnter2D(Collision2D other) {
-            if (other.gameObject.CompareTag("Tile")) return;
-            //Debug.Log("This is to remind myself the bottom is colliding with the ground.");
+            if (AdjacentTileObjects.Contains(other.gameObject)) return;
+//            Debug.Log("AHHHHHHH.");
             health -= 1;
         }
     }
