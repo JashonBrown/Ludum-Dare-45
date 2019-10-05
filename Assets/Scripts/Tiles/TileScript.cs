@@ -8,7 +8,7 @@ namespace LudumDare {
         
         private void Start() {
             health = tile.Health;
-//            GetComponent<SpriteRenderer>().sprite = tile.Sprite;
+            GetComponent<SpriteRenderer>().sprite = tile.Sprite;
         }
 
         private void Update() {
@@ -23,7 +23,7 @@ namespace LudumDare {
 
         private void OnCollisionEnter2D(Collision2D other) {
             if (other.gameObject.CompareTag("Tile")) return;
-            Debug.Log("This is to remind myself the bottom is colliding with the ground.");
+            //Debug.Log("This is to remind myself the bottom is colliding with the ground.");
             health -= 1;
         }
     }

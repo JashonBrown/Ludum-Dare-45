@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b04047bf10108004ba8016711649d8fe, type: 3}
-  m_Name: Basic Cannon
+  m_Script: {fileID: 11500000, guid: 4a012acd8ca664282a7d0e796bbabead, type: 3}
+  m_Name: Wall Tier 2
   m_EditorClassIdentifier: 
-  Type: 0
-  Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  Health: 10
+  Type: 1
+  Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  Health: 2

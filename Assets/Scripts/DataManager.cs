@@ -8,9 +8,11 @@ namespace LudumDare
     {
         public static DataManager Instance; // Singleton
 
-        public TileData WallTier1;
+        public TileData[] WallTiers;
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         public int RaftHeight;
         public int RaftWidth;
+        public Sprite DefaultSlotImage;
 
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -30,7 +32,17 @@ namespace LudumDare
             #endregion
 
             // Create new raft
-            PlayerRaft = new Raft(RaftHeight, RaftHeight);
+            PlayerRaft = new Raft(RaftWidth, RaftHeight);
+        }
+
+        // ---------------------------------------------------------------------
+
+        public TileData GetWallDataByTier(int wallTier)
+        {
+            if (wallTier == WallTiers.Length+1) return null;
+
+            // Return
+            return WallTiers[wallTier-1];
         }
     }
 }

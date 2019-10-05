@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class ShipGenerator : MonoBehaviour {
 
-    public List<Tile> tileset;
+    public List<TileData> tileset;
     
-    private Tile[,] _player;
+    private TileData[,] _player;
     private Tile[,] _enemy;
     private GameObject[,] _playerObjects;
     private GameObject[,] _enemyObjects;    
@@ -15,10 +15,12 @@ public class ShipGenerator : MonoBehaviour {
     public GameObject wallPrefab;
     public GameObject cannonPrefab;
 
-    void Start() {
+    void Start()
+    {
         GenerateTiles();
-        
-        InstantiateTiles(_player, _playerObjects, -15);
+
+        var tiles = DataManager.Instance.PlayerRaft.Tiles;
+        InstantiateTiles(tiles, _playerObjects, -15);
         AttachTileHinges(_playerObjects);
         
         InstantiateTiles(_enemy, _enemyObjects, 15);
@@ -54,19 +56,21 @@ public class ShipGenerator : MonoBehaviour {
             {null, null, null, null, null, null, null, null, null, null}  
         };
 
-        _enemy = new[,]
-        {
-            {tileset[0], null, null, null, null, null, null, null, null, null},
-            {tileset[0], null, null, null, null, null, null, null, null, null},
-            {tileset[0], null, null, tileset[0], tileset[2], null, null, null, null, null},
-            {tileset[0], tileset[0], tileset[0], tileset[0], tileset[0], null, null, null, null, null},
-            {tileset[0], null, null, null, null, null, null, null, null, null},
-            {tileset[0], null, null, null, tileset[0], tileset[2], null, null, null, null},
-            {tileset[0], tileset[0], tileset[0], tileset[0], tileset[0], tileset[0], null, null, null, null},
-            {tileset[0], null, null, null, null, null, null, null, null, null},
-            {tileset[0], null, null, null, null, null, null, null, null, null},
-            {tileset[0], null, null, null, null, null, null, null, null, null},
-        };
+        //_enemy = new[,]
+        //{
+        //    {tileset[0], null, null, null, null, null, null, null, null, null},
+        //    {tileset[0], null, null, null, null, null, null, null, null, null},
+        //    {tileset[0], null, null, tileset[0], tileset[2], null, null, null, null, null},
+        //    {tileset[0], tileset[0], tileset[0], tileset[0], tileset[0], null, null, null, null, null},
+        //    {tileset[0], null, null, null, null, null, null, null, null, null},
+        //    {tileset[0], null, null, null, tileset[0], tileset[2], null, null, null, null},
+        //    {tileset[0], tileset[0], tileset[0], tileset[0], tileset[0], tileset[0], null, null, null, null},
+        //    {tileset[0], null, null, null, null, null, null, null, null, null},
+        //    {tileset[0], null, null, null, null, null, null, null, null, null},
+        //    {tileset[0], null, null, null, null, null, null, null, null, null},
+        //};
+
+        _enemy = new Tile[0,0];
         
         _enemyObjects = new GameObject[,]
         {
@@ -85,11 +89,13 @@ public class ShipGenerator : MonoBehaviour {
     }
 
     private void InstantiateTiles(Tile[,] tiles, GameObject[,] tileObjects, int xOffset = 0) {
-        for (var i = 0; i < tiles.GetLength(0); i++) {
-            for (var j = 0; j < tiles.GetLength(0); j++) {
+        for (var i = 0; i < tiles.GetLength(0); i++)
+        {
+            for (var j = 0; j < tiles.GetLength(0); j++)
+            {
                 var tile = tiles[i, j];
-                if (tile != null) {
-
+                if (tile != null)
+                {
                     // TODO: Make not trash
                     GameObject prefab = null;
                     if (tile.Type == TileType.Wall) {
@@ -100,7 +106,7 @@ public class ShipGenerator : MonoBehaviour {
                     }
                     
                     tileObjects[i, j] = Instantiate(prefab, new Vector3(i + xOffset, j, 0), Quaternion.identity);
-                    tileObjects[i, j].GetComponent<TileScript>().tile = tile;
+                    tileObjects[i, j].GetComponent<TileScript>().tile = new Tile(tile.Type, tile.Health, tile.Sprite); //tile;
                 }
             }
         }

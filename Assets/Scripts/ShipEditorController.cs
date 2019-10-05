@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,16 +12,18 @@ namespace LudumDare
 
         public GameObject shipGridView;
         public GameObject editorTilePrefab;
-        public TileData SelectedTile;
+        [NonSerialized] public TileData selectedTile;
 
         private void Awake()
         {
             if (Instance == null) Instance = this;
         }
 
-        // Start is called before the first frame update
-        void OnEnable()
+        // ---------------------------------------------------------------------
+
+        private void Start()
         {
+            selectedTile = DataManager.Instance.GetWallDataByTier(1);
             RefreshShipEditor();
         }
 
@@ -50,9 +53,9 @@ namespace LudumDare
 
         // ---------------------------------------------------------------------
 
-        public void SetSelectedTile()
+        public void SetSelectedTile(TileData tileData)
         {
-
+            selectedTile = tileData;
         }
 
     }

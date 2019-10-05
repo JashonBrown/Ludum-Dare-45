@@ -9,13 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f42f06ff6cc543ea942180e019f0fc8d, type: 3}
-  m_Name: UIButton_MainMenu
+  m_Script: {fileID: 11500000, guid: 4a012acd8ca664282a7d0e796bbabead, type: 3}
+  m_Name: Player
   m_EditorClassIdentifier: 
-  CategoryName: Main Menu
-  DatabaseType: 0
-  Names:
-  - Landing
-  - Editor
-  - Second
-  - Play
+  Type: 0
+  Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  Health: 5

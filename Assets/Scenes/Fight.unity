@@ -208,7 +208,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1016030857}
-  - component: {fileID: 1016030856}
   - component: {fileID: 1016030858}
   m_Layer: 0
   m_Name: GameManager
@@ -217,18 +216,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1016030856
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1016030855}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa490cd52be2443e0a4b9cc706f2d97c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1016030857
 Transform:
   m_ObjectHideFlags: 0
@@ -256,9 +243,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileset:
-  - {fileID: 11400000, guid: f8c06e82526d8474cba087ff7e1e64b3, type: 2}
-  - {fileID: 11400000, guid: 900f1e9a83a8948d782939fbd8bfcdfc, type: 2}
-  - {fileID: 11400000, guid: bca835c04099e407dafbf8b4e8ea1cfb, type: 2}
+  - {fileID: 11400000, guid: 5e32c9f8194033545b9ed80a7280ae0a, type: 2}
+  - {fileID: 11400000, guid: 497fababc9e26354d9e567517ac8c7f3, type: 2}
+  - {fileID: 11400000, guid: a52393ec790e03d45918ccb6571c8c5d, type: 2}
   wallPrefab: {fileID: 8087742123995556458, guid: 41ea9568801eb4f2eb12fa0f2339651b,
     type: 3}
   cannonPrefab: {fileID: 8309168554114900002, guid: a38c1a954b6a7449597fdb6f09d8ea90,
