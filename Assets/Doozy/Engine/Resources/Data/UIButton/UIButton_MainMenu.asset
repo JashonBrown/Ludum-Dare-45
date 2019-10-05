@@ -15,5 +15,6 @@ MonoBehaviour:
   CategoryName: Main Menu
   DatabaseType: 0
   Names:
-  - Second
   - Landing
+  - Play
+  - Second

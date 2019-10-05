@@ -4,9 +4,11 @@ using UnityEngine;
 
 namespace LudumDare
 {
-    public class WallTile : Tile
+    [CreateAssetMenu(menuName = "Tile Data")]
+    public class TileData : ScriptableObject
     {
-        public int Tier;
+        public TileType Type;
         public Sprite Sprite;
+        public int Health;
     }
 }
