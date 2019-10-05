@@ -56,16 +56,16 @@ public class ShipGenerator : MonoBehaviour {
 
         _enemy = new[,]
         {
-            {tileset[0], tileset[2], null, null, null, null, null, null, null, null},
             {tileset[0], null, null, null, null, null, null, null, null, null},
             {tileset[0], null, null, null, null, null, null, null, null, null},
-            {tileset[0], tileset[2], null, null, null, null, null, null, null, null},
+            {tileset[0], null, null, tileset[0], tileset[2], null, null, null, null, null},
+            {tileset[0], tileset[0], tileset[0], tileset[0], tileset[0], null, null, null, null, null},
             {tileset[0], null, null, null, null, null, null, null, null, null},
-            {tileset[0], tileset[2], null, null, null, null, null, null, null, null},
+            {tileset[0], null, null, null, tileset[0], tileset[2], null, null, null, null},
+            {tileset[0], tileset[0], tileset[0], tileset[0], tileset[0], tileset[0], null, null, null, null},
             {tileset[0], null, null, null, null, null, null, null, null, null},
             {tileset[0], null, null, null, null, null, null, null, null, null},
             {tileset[0], null, null, null, null, null, null, null, null, null},
-            {tileset[0], tileset[0], tileset[0], tileset[0], tileset[0], tileset[0], tileset[0], tileset[0], tileset[0], tileset[0]},
         };
         
         _enemyObjects = new GameObject[,]

@@ -701,6 +701,7 @@
         <e p="Scripts" t="Include">
           <e p="DataManager.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
+          <e p="ProjectileScript.cs" t="Include" />
           <e p="Raft.cs" t="Include" />
           <e p="ShipEditorButton.cs" t="Include" />
           <e p="ShipEditorController.cs" t="Include" />
