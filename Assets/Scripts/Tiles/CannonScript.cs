@@ -12,7 +12,7 @@ namespace LudumDare {
 
         private void Start() {
             StartCoroutine(AimAndAttack());
-            Tile = GetComponent<TileScript>().tile;
+            Tile = GetComponent<TileScript>().Tile;
         }
 
         protected IEnumerator AimAndAttack() {

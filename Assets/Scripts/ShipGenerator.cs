@@ -106,7 +106,7 @@ public class ShipGenerator : MonoBehaviour {
                     }
                     
                     tileObjects[i, j] = Instantiate(prefab, new Vector3(i + xOffset, j, 0), Quaternion.identity);
-                    tileObjects[i, j].GetComponent<TileScript>().tile = new Tile(tile.Type, tile.Health, tile.Sprite); //tile;
+                    tileObjects[i, j].GetComponent<TileScript>().Init(tile);
                 }
             }
         }

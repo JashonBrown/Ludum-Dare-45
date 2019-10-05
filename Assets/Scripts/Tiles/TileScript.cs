@@ -2,12 +2,15 @@ using Sirenix.Utilities;
 using UnityEngine;
 
 namespace LudumDare {
-    public class TileScript : MonoBehaviour {
-        public Tile tile;
+    public class TileScript : MonoBehaviour
+    {
+        public Tile Tile;
         public int health;
         
-        private void Start() {
+        public void Init(Tile tile)
+        {
             health = tile.Health;
+            Tile = tile;
             GetComponent<SpriteRenderer>().sprite = tile.Sprite;
         }
 
