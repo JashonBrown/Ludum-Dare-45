@@ -21,7 +21,7 @@ public class ShipGenerator : MonoBehaviour {
         InstantiateTiles(_player, _playerObjects, -15);
         AttachTileHinges(_playerObjects);
         
-        InstantiateTiles(_enemy, _enemyObjects);
+        InstantiateTiles(_enemy, _enemyObjects, 15);
         AttachTileHinges(_enemyObjects);
     }
 

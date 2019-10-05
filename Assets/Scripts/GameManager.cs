@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public bool[][] Player1Data;
+
     # region Singleton
     public static GameManager instance = null;
     void Awake()
@@ -29,4 +31,6 @@ public class GameManager : MonoBehaviour
     {
         
     }
+
+    
 }
