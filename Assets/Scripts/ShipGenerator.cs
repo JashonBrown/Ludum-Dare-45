@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using LudumDare;
 using UnityEngine;
 
 public class ShipGenerator : MonoBehaviour {
 
+
+    public List<TileData> tileset;
     
     private TileData[,] _player;
-    private Tile[,] _enemy;
+    private Tile[][,] _enemies;
     private GameObject[,] _playerObjects;
     private GameObject[,] _enemyObjects;    
     
@@ -16,6 +19,9 @@ public class ShipGenerator : MonoBehaviour {
     public GameObject playerStartPosition;
     public GameObject enemyStartPosition;
 
+    public GameObject playerShip;
+    public GameObject enemyShip;
+    
     void Start()
     {
         GenerateTiles();
@@ -24,40 +30,93 @@ public class ShipGenerator : MonoBehaviour {
         InstantiateTiles(tiles, _playerObjects, playerStartPosition.transform);
         AttachTileHinges(_playerObjects);
         
-        InstantiateTiles(tiles, _enemyObjects, enemyStartPosition.transform);
+        InstantiateTiles(_enemies[DataManager.Instance.Level + 1], _enemyObjects, enemyStartPosition.transform);
         AttachTileHinges(_enemyObjects);
+        
+        foreach (var enemyObject in _enemyObjects) {
+            if (enemyObject != null) {
+                enemyObject.transform.SetParent(enemyShip.transform);
+            }
+        }
+        
+        foreach (var playerObject in _playerObjects) {
+            if (playerObject != null) {
+                playerObject.transform.SetParent(playerShip.transform);
+            }
+        }
+    }
+
+    private void Update() {
+        var enemyTiles = enemyShip.GetComponentsInChildren<TileScript>();
+        if (!enemyTiles.Any()) {
+            GameManager.Instance.Win();
+        }
+        
+        var playerTiles = playerShip.GetComponentsInChildren<TileScript>();
+        if (!playerTiles.Any()) {
+            GameManager.Instance.Lose();
+        }
     }
 
     private void GenerateTiles() {
         
         _playerObjects = new GameObject[,]
         {
-            {null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null}  
+            {null, null, null, null, null, null},
+            {null, null, null, null, null, null},
+            {null, null, null, null, null, null},
+            {null, null, null, null, null, null},
+            {null, null, null, null, null, null},
+            {null, null, null, null, null, null}
         };
 
         _enemyObjects = new GameObject[,]
         {
-            {null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null}  
+            {null, null, null, null, null, null},
+            {null, null, null, null, null, null},
+            {null, null, null, null, null, null},
+            {null, null, null, null, null, null},
+            {null, null, null, null, null, null},
+            {null, null, null, null, null, null}
         };
-        
+
+        var tile0 = new Tile(tileset[0].Type, tileset[0].Health, tileset[0].Sprite);
+        var tile1 = new Tile(tileset[1].Type, tileset[1].Health, tileset[1].Sprite);
+
+        _enemies = new []{ 
+            new[,] {
+                {tile0, tile1, null, null, null, null},
+                {tile0, null, null, null, null, null},
+                {tile0, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new[,] {
+                {tile0, null, null, null, null, null},
+                {tile0, tile0, tile1, null, null, null},
+                {tile0, null, null, null, null, null},
+                {tile0, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new[,] {
+                {tile0, tile1, null, null, null, null},
+                {tile0, tile0, tile0, tile1, null, null},
+                {tile0, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new[,] {
+                {tile0, null, null, null, null, null},
+                {tile0, tile1, null, null, null, null},
+                {tile0, null, null, null, null, null},
+                {tile0, tile0, tile1, null, null, null},
+                {tile0, null, null, null, null, null},
+                {tile0, tile0, tile0, tile1, null, null}
+            },
+        };
     }
 
     private void InstantiateTiles(Tile[,] tiles, GameObject[,] tileObjects, Transform offset)

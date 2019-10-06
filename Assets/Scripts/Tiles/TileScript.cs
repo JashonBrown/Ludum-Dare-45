@@ -13,7 +13,9 @@ namespace LudumDare {
         {
             health = tile.Health;
             Tile = tile;
-            GetComponent<SpriteRenderer>().sprite = tile.Sprite;
+            var sr = GetComponent<SpriteRenderer>();
+            sr.sprite = tile.Sprite;
+            sr.flipX = tile.Type == TileType.Enemy;
         }
 
         private void Update() {
@@ -23,12 +25,13 @@ namespace LudumDare {
         }
 
         public void Die() {
-            GetComponents<HingeJoint2D>().ForEach(x => x.enabled = false);
+//            GetComponents<HingeJoint2D>().ForEach(x => x.enabled = false);
+            Destroy(gameObject);
         }
 
         private void OnCollisionEnter2D(Collision2D other) {
-            if (AdjacentTileObjects.Contains(other.gameObject)) return;
-//            Debug.Log("AHHHHHHH.");
+            if (AdjacentTileObjects.Contains(other.gameObject) || other.gameObject.CompareTag("Ground")) return;
+            if (other.gameObject.CompareTag("Death")) health = 0;
             health -= 1;
         }
     }

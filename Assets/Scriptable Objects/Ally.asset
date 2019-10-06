@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 2
   Sprite: {fileID: 21300000, guid: 8c47cc4aec0a9be49899cfebcb728990, type: 3}
-  Health: 0
+  Health: 1

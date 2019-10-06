@@ -14,9 +14,11 @@ namespace LudumDare
         public int RaftWidth;
         public Sprite DefaultSlotImage;
 
+        public int Money;
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
         public Raft PlayerRaft { get; set; }
+        public int Level { get; set; }
 
         private void Awake()
         {
@@ -33,6 +35,7 @@ namespace LudumDare
 
             // Create new raft
             PlayerRaft = new Raft(RaftWidth, RaftHeight);
+            Money = 0;
         }
 
         // ---------------------------------------------------------------------

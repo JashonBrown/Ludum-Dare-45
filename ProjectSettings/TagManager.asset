@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Tile
+  - Ground
+  - Death
   layers:
   - Default
   - TransparentFX
@@ -44,6 +46,9 @@ TagManager:
     locked: 0
   - name: Ship
     uniqueID: 3385781793
+    locked: 0
+  - name: Tile
+    uniqueID: 1411164503
     locked: 0
   - name: Default
     uniqueID: 0

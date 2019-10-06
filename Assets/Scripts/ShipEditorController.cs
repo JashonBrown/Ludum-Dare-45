@@ -13,6 +13,7 @@ namespace LudumDare
         public GameObject shipGridView;
         public GameObject editorTilePrefab;
         [NonSerialized] public TileData selectedTile;
+        public Text MoneyText;
 
         private void Awake()
         {
@@ -32,7 +33,7 @@ namespace LudumDare
         public void RefreshShipEditor()
         {
             Raft raft = DataManager.Instance.PlayerRaft;
-
+            MoneyText.text = $"${DataManager.Instance.Money}";
             var gridLayout = shipGridView.GetComponent<GridLayoutGroup>();
             gridLayout.constraintCount = raft.Height;
 

@@ -4,6 +4,7 @@
     {
         Player,
         Wall,
-        Ally
+        Ally,
+        Enemy
     }
 }
