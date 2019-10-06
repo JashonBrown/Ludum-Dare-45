@@ -35,17 +35,12 @@ namespace LudumDare
 
             // Create new raft
             PlayerRaft = new Raft(RaftWidth, RaftHeight);
-            Money = 0;
         }
 
         // ---------------------------------------------------------------------
 
         public TileData GetWallDataByTier(int wallTier) {
             return Wall;
-//            if (wallTier == WallTiers.Length) return null;
-//
-//            // Return
-//            return WallTiers[wallTier];
         }
     }
 }

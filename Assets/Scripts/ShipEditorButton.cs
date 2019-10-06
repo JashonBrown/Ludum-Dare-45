@@ -33,12 +33,24 @@ namespace LudumDare
                     if (currentTile.Tier == 2) return;
 
                     // Upgrade wall tier
-                    currentTile.Tier++;
-                    currentTile.Sprite = selectedTile.Sprites[currentTile.Tier];
+                    if (DataManager.Instance.Money >= selectedTile.Costs[currentTile.Tier + 1]) {
+                        DataManager.Instance.Money -= selectedTile.Costs[currentTile.Tier + 1];
+                        currentTile.Tier++;
+                        currentTile.Sprite = selectedTile.Sprites[currentTile.Tier];
+                        ShipEditorController.Instance.UpdateMoney();
+                    }
+                    else {
+                        return;
+                    }
                 }
                 // Otherwise, add new tile
-                else {
+                else if (selectedTile.Costs[0] <= DataManager.Instance.Money) {
+                    DataManager.Instance.Money -= selectedTile.Costs[0];
                     DataManager.Instance.PlayerRaft.Tiles[i, j] = new Tile(selectedTile.Type, 0, selectedTile.Sprites[0]);
+                    ShipEditorController.Instance.UpdateMoney();
+                }
+                else {
+                    return;
                 }
 
                 _UpdateVisual();

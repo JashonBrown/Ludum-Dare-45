@@ -52,6 +52,10 @@ namespace LudumDare
             }
         }
 
+        public void UpdateMoney() {
+            MoneyText.text = $"${DataManager.Instance.Money}";
+        }
+
         // ---------------------------------------------------------------------
 
         public void SetSelectedTile(TileData tileData)

@@ -9,5 +9,6 @@ namespace LudumDare
     {
         public TileType Type;
         public Sprite[] Sprites;
+        public int[] Costs;
     }
 }

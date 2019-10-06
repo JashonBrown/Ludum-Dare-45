@@ -15,3 +15,4 @@ MonoBehaviour:
   Type: 0
   Sprites:
   - {fileID: 21300000, guid: 8c47cc4aec0a9be49899cfebcb728990, type: 3}
+  Costs: c8000000

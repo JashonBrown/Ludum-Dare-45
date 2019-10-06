@@ -49,28 +49,19 @@ public class ShipGenerator : MonoBehaviour {
 
     private void Update() {
         var enemyTiles = enemyShip.GetComponentsInChildren<TileScript>();
-        if (!enemyTiles.Any()) {
+        if (enemyTiles.All(x => x.Tile.Type != TileType.Enemy)) {
             enemyShip.GetComponent<Animator>().SetBool("Dead", true);
-//            GameManager.Instance.Win();
         }
         
         var playerTiles = playerShip.GetComponentsInChildren<TileScript>();
-        if (!playerTiles.Any()) {
+        if (playerTiles.All(x => x.Tile.Type != TileType.Player)) {
             playerShip.GetComponent<Animator>().SetBool("Dead", true);
         }
     }
 
     private void GenerateTiles() {
-        
-        _playerObjects = new GameObject[,]
-        {
-            {null, null, null, null, null, null},
-            {null, null, null, null, null, null},
-            {null, null, null, null, null, null},
-            {null, null, null, null, null, null},
-            {null, null, null, null, null, null},
-            {null, null, null, null, null, null}
-        };
+
+        _playerObjects = new GameObject[DataManager.Instance.RaftWidth, DataManager.Instance.RaftHeight];
 
         _enemyObjects = new GameObject[,]
         {
@@ -141,7 +132,7 @@ public class ShipGenerator : MonoBehaviour {
 
                     //var rt = (RectTransform)prefab.transform;
                     //var prefabWdith = rt.rect.width;
-                    tileObjects[i, j] = Instantiate(prefab, new Vector3(i*3 + offset.position.x, j*3 + offset.position.y, 0), Quaternion.identity);
+                    tileObjects[i, j] = Instantiate(prefab, new Vector3(i * 2 + offset.position.x, j * 2 + offset.position.y, 0), Quaternion.identity);
                     tileObjects[i, j].GetComponent<TileScript>().Init(tile);
                 }
             }

@@ -150,10 +150,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Wall: {fileID: 11400000, guid: 5e32c9f8194033545b9ed80a7280ae0a, type: 2}
-  RaftHeight: 6
-  RaftWidth: 6
+  RaftHeight: 12
+  RaftWidth: 12
   DefaultSlotImage: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
-  Money: 0
+  Money: 1000000000
 --- !u!4 &16034309
 Transform:
   m_ObjectHideFlags: 0
