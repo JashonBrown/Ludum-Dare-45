@@ -25,7 +25,6 @@ namespace LudumDare {
         }
 
         public void Die() {
-//            GetComponents<HingeJoint2D>().ForEach(x => x.enabled = false);
             Destroy(gameObject);
         }
 

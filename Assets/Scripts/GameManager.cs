@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public bool[][] Player1Data;
-
     # region Singleton
     public static GameManager Instance = null;
 

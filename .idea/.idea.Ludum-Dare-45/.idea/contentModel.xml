@@ -714,6 +714,7 @@
             <e p="TileType.cs" t="Include" />
           </e>
         </e>
+        <e p="WinController.cs" t="Include" />
       </e>
       <e p="Library" t="ExcludeRecursive" />
       <e p="Ludum-Dare-45.sln" t="IncludeFlat" />

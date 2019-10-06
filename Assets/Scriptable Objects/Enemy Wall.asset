@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a012acd8ca664282a7d0e796bbabead, type: 3}
-  m_Name: Enemy Wall 3
+  m_Name: Enemy Wall
   m_EditorClassIdentifier: 
   Type: 1
-  Sprite: {fileID: 21300000, guid: 52ee9a0e6b20a4942acc2e61d4feac4e, type: 3}
-  Health: 3
+  Sprites:
+  - {fileID: 21300000, guid: a835ac254a66d42cd82816487f7bd1f6, type: 3}
+  - {fileID: 21300000, guid: 321cd6e6f7dee46ebad78530340fa428, type: 3}
+  - {fileID: 21300000, guid: 52ee9a0e6b20a4942acc2e61d4feac4e, type: 3}

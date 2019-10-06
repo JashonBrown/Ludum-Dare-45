@@ -149,10 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8a978651e4d406479a72426cf999759, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WallTiers:
-  - {fileID: 11400000, guid: 5e32c9f8194033545b9ed80a7280ae0a, type: 2}
-  - {fileID: 11400000, guid: 2bbb069a03e9a9149b4310373cd80e69, type: 2}
-  - {fileID: 11400000, guid: 1f5b644ac7ffb7c49856c10bb2f7185d, type: 2}
+  Wall: {fileID: 11400000, guid: 5e32c9f8194033545b9ed80a7280ae0a, type: 2}
   RaftHeight: 6
   RaftWidth: 6
   DefaultSlotImage: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}

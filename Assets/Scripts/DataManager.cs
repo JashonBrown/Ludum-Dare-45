@@ -8,7 +8,7 @@ namespace LudumDare
     {
         public static DataManager Instance; // Singleton
 
-        public TileData[] WallTiers;
+        public TileData Wall;
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         public int RaftHeight;
         public int RaftWidth;
@@ -40,12 +40,12 @@ namespace LudumDare
 
         // ---------------------------------------------------------------------
 
-        public TileData GetWallDataByTier(int wallTier)
-        {
-            if (wallTier == WallTiers.Length+1) return null;
-
-            // Return
-            return WallTiers[wallTier-1];
+        public TileData GetWallDataByTier(int wallTier) {
+            return Wall;
+//            if (wallTier == WallTiers.Length) return null;
+//
+//            // Return
+//            return WallTiers[wallTier];
         }
     }
 }

@@ -7,13 +7,15 @@ namespace LudumDare
     public class Tile
     {
         public TileType Type { get; set; }
-        public int Health { get; set; }
+        public int Health => Tier + 1;
+        public int Tier { get; set; }
+
         public Sprite Sprite { get; set; }
 
-        public Tile(TileType type, int health, Sprite sprite)
+        public Tile(TileType type, int tier, Sprite sprite)
         {
             Type = type;
-            Health = health;
+            Tier = tier;
             Sprite = sprite;
         }
     }

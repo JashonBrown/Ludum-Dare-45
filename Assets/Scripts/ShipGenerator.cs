@@ -27,10 +27,11 @@ public class ShipGenerator : MonoBehaviour {
         GenerateTiles();
 
         var tiles = DataManager.Instance.PlayerRaft.Tiles;
+        
         InstantiateTiles(tiles, _playerObjects, playerStartPosition.transform);
         AttachTileHinges(_playerObjects);
         
-        InstantiateTiles(_enemies[DataManager.Instance.Level + 1], _enemyObjects, enemyStartPosition.transform);
+        InstantiateTiles(_enemies[DataManager.Instance.Level], _enemyObjects, enemyStartPosition.transform);
         AttachTileHinges(_enemyObjects);
         
         foreach (var enemyObject in _enemyObjects) {
@@ -49,12 +50,13 @@ public class ShipGenerator : MonoBehaviour {
     private void Update() {
         var enemyTiles = enemyShip.GetComponentsInChildren<TileScript>();
         if (!enemyTiles.Any()) {
-            GameManager.Instance.Win();
+            enemyShip.GetComponent<Animator>().SetBool("Dead", true);
+//            GameManager.Instance.Win();
         }
         
         var playerTiles = playerShip.GetComponentsInChildren<TileScript>();
         if (!playerTiles.Any()) {
-            GameManager.Instance.Lose();
+            playerShip.GetComponent<Animator>().SetBool("Dead", true);
         }
     }
 
@@ -80,9 +82,9 @@ public class ShipGenerator : MonoBehaviour {
             {null, null, null, null, null, null}
         };
 
-        var tile0 = new Tile(tileset[0].Type, tileset[0].Health, tileset[0].Sprite);
-        var tile1 = new Tile(tileset[1].Type, tileset[1].Health, tileset[1].Sprite);
-
+        var tile0 = new Tile(tileset[0].Type, 0, tileset[0].Sprites[0]);
+        var tile1 = new Tile(tileset[1].Type, 0, tileset[1].Sprites[0]);
+        
         _enemies = new []{ 
             new[,] {
                 {tile0, tile1, null, null, null, null},
@@ -139,7 +141,7 @@ public class ShipGenerator : MonoBehaviour {
 
                     //var rt = (RectTransform)prefab.transform;
                     //var prefabWdith = rt.rect.width;
-                    tileObjects[i, j] = Instantiate(prefab, new Vector3((i*3) + offset.position.x, (j*3) + offset.position.y, 0), Quaternion.identity);
+                    tileObjects[i, j] = Instantiate(prefab, new Vector3(i*3 + offset.position.x, j*3 + offset.position.y, 0), Quaternion.identity);
                     tileObjects[i, j].GetComponent<TileScript>().Init(tile);
                 }
             }

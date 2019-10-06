@@ -8,7 +8,6 @@ namespace LudumDare
     public class TileData : ScriptableObject
     {
         public TileType Type;
-        public Sprite Sprite;
-        public int Health;
+        public Sprite[] Sprites;
     }
 }

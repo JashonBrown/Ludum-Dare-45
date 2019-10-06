@@ -30,14 +30,15 @@ namespace LudumDare
                 if (selectedTile.Type == TileType.Wall && currentTile != null && currentTile.Type == TileType.Wall)
                 {
                     // Don't upgrade
-                    if (currentTile.Health == DataManager.Instance.WallTiers.Length) return;
+                    if (currentTile.Tier == 2) return;
 
                     // Upgrade wall tier
-                    currentTile.Health++;
+                    currentTile.Tier++;
+                    currentTile.Sprite = selectedTile.Sprites[currentTile.Tier];
                 }
                 // Otherwise, add new tile
                 else {
-                    DataManager.Instance.PlayerRaft.Tiles[i, j] = new Tile(selectedTile.Type, selectedTile.Health, selectedTile.Sprite);
+                    DataManager.Instance.PlayerRaft.Tiles[i, j] = new Tile(selectedTile.Type, 0, selectedTile.Sprites[0]);
                 }
 
                 _UpdateVisual();
@@ -51,19 +52,18 @@ namespace LudumDare
             var tile = DataManager.Instance.PlayerRaft.Tiles[indexI, indexJ];
 
             // Is tile empty?
-            if (tile == null || tile.Sprite == null) {
+            if (tile == null) {
                 image.sprite = DataManager.Instance.DefaultSlotImage;
             }
             // Is a wall?
             else if (tile.Type == TileType.Wall)
             {
-                var newTile = DataManager.Instance.GetWallDataByTier(tile.Health);
+                var newTile = DataManager.Instance.GetWallDataByTier(tile.Tier);
 
                 // Skip if nothing here brah
                 if (newTile == null) return;
 
-
-                image.sprite = newTile.Sprite;
+                image.sprite = newTile.Sprites[tile.Tier];
             }
             // Tile is something other than wall?
             else {
