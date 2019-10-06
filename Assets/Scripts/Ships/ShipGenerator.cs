@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class ShipGenerator : MonoBehaviour {
 
-
+    public bool ArcadeMode;
+    public ShipEncounter Ship;
     public List<TileData> tileset;
     
     private TileData[,] _player;
@@ -24,90 +25,97 @@ public class ShipGenerator : MonoBehaviour {
     
     void Start()
     {
-        GenerateTiles();
-
-        var tiles = DataManager.Instance.PlayerRaft.Tiles;
-        
-        InstantiateTiles(tiles, _playerObjects, playerStartPosition.transform);
-        AttachTileHinges(_playerObjects);
-        
-        InstantiateTiles(_enemies[DataManager.Instance.Level], _enemyObjects, enemyStartPosition.transform);
-        AttachTileHinges(_enemyObjects);
-        
-        foreach (var enemyObject in _enemyObjects) {
-            if (enemyObject != null) {
-                enemyObject.transform.SetParent(enemyShip.transform);
+        if (ArcadeMode) {
+            GenerateTiles();
+    
+            var tiles = DataManager.Instance.PlayerRaft.Tiles;
+            
+            InstantiateTiles(tiles, _playerObjects, playerStartPosition.transform);
+            AttachTileHinges(_playerObjects);
+            
+            InstantiateTiles(_enemies[DataManager.Instance.Level], _enemyObjects, enemyStartPosition.transform);
+            AttachTileHinges(_enemyObjects);
+            
+            foreach (var enemyObject in _enemyObjects) {
+                if (enemyObject != null) {
+                    enemyObject.transform.SetParent(enemyShip.transform);
+                }
+            }
+            
+            foreach (var playerObject in _playerObjects) {
+                if (playerObject != null) {
+                    playerObject.transform.SetParent(playerShip.transform);
+                }
             }
         }
-        
-        foreach (var playerObject in _playerObjects) {
-            if (playerObject != null) {
-                playerObject.transform.SetParent(playerShip.transform);
-            }
+        else {
+            GenerateEncounterShip(Ship);
         }
     }
 
     private void Update() {
-        var enemyTiles = enemyShip.GetComponentsInChildren<TileScript>();
-        if (enemyTiles.All(x => x.Tile.Type != TileType.Enemy)) {
-            enemyShip.GetComponent<Animator>().SetBool("Dead", true);
-        }
-        
-        var playerTiles = playerShip.GetComponentsInChildren<TileScript>();
-        if (playerTiles.All(x => x.Tile.Type != TileType.Player)) {
-            playerShip.GetComponent<Animator>().SetBool("Dead", true);
+        if (ArcadeMode) {
+            var enemyTiles = enemyShip.GetComponentsInChildren<TileScript>();
+            if (enemyTiles.All(x => x.Tile.Type != TileType.Enemy)) {
+                enemyShip.GetComponent<Animator>().SetBool("Dead", true);
+            }
+            
+            var playerTiles = playerShip.GetComponentsInChildren<TileScript>();
+            if (playerTiles.All(x => x.Tile.Type != TileType.Player)) {
+                playerShip.GetComponent<Animator>().SetBool("Dead", true);
+            }
         }
     }
 
+    private void GenerateEncounterShip(ShipEncounter ship) {
+        var crew = ship.Crew;
+        for (var i = 0; i < crew.Count; i++) {
+            var mountPoint = ship.MountPoints[i];
+            var crewMember = Instantiate(cannonPrefab, mountPoint.transform.position, Quaternion.identity);
+            crewMember.GetComponent<TileScript>().Tile = new Tile(TileType.Player, 0, crew[i].standing);
+            crewMember.transform.SetParent(mountPoint.transform);
+            crewMember.GetComponent<Rigidbody2D>().gravityScale = 0;
+        }
+    }
+    
     private void GenerateTiles() {
 
         _playerObjects = new GameObject[DataManager.Instance.RaftWidth, DataManager.Instance.RaftHeight];
 
-        _enemyObjects = new GameObject[,]
-        {
-            {null, null, null, null, null, null},
-            {null, null, null, null, null, null},
-            {null, null, null, null, null, null},
-            {null, null, null, null, null, null},
-            {null, null, null, null, null, null},
-            {null, null, null, null, null, null}
-        };
+        _enemyObjects = new GameObject[5,5];
+        
 
         var tile0 = new Tile(tileset[0].Type, 0, tileset[0].Sprites[0]);
         var tile1 = new Tile(tileset[1].Type, 0, tileset[1].Sprites[0]);
         
         _enemies = new []{ 
             new[,] {
-                {tile0, tile1, null, null, null, null},
-                {tile0, null, null, null, null, null},
-                {tile0, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {tile0, tile1, null, null, null},
+                {tile0, null, null, null, null},
+                {tile0, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new[,] {
-                {tile0, null, null, null, null, null},
-                {tile0, tile0, tile1, null, null, null},
-                {tile0, null, null, null, null, null},
-                {tile0, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {tile0, null, null, null, null},
+                {tile0, tile0, tile1, null, null},
+                {tile0, null, null, null, null},
+                {tile0, null, null, null, null},
+                {null, null, null, null, null}
             },
             new[,] {
-                {tile0, tile1, null, null, null, null},
-                {tile0, tile0, tile0, tile1, null, null},
-                {tile0, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {tile0, tile1, null, null, null},
+                {tile0, tile0, tile0, tile1, null},
+                {tile0, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new[,] {
-                {tile0, null, null, null, null, null},
-                {tile0, tile1, null, null, null, null},
-                {tile0, null, null, null, null, null},
-                {tile0, tile0, tile1, null, null, null},
-                {tile0, null, null, null, null, null},
-                {tile0, tile0, tile0, tile1, null, null}
+                {tile0, tile1, null, null, null},
+                {tile0, null, null, null, null},
+                {tile0, tile0, tile1, null, null},
+                {tile0, null, null, null, null},
+                {tile0, tile0, tile0, tile1, null}
             },
         };
     }
@@ -130,9 +138,7 @@ public class ShipGenerator : MonoBehaviour {
                         prefab = cannonPrefab;
                     }
 
-                    //var rt = (RectTransform)prefab.transform;
-                    //var prefabWdith = rt.rect.width;
-                    tileObjects[i, j] = Instantiate(prefab, new Vector3(i * 2 + offset.position.x, j * 2 + offset.position.y, 0), Quaternion.identity);
+                    tileObjects[i, j] = Instantiate(prefab, new Vector3(i * 4 + offset.position.x, j * 4 + offset.position.y, 0), Quaternion.identity);
                     tileObjects[i, j].GetComponent<TileScript>().Init(tile);
                 }
             }

@@ -8,6 +8,10 @@ namespace LudumDare {
         public Tile Tile;
         public int health;
         public List<GameObject> AdjacentTileObjects;
+
+        public void Start() {
+            Init(Tile);
+        }
         
         public void Init(Tile tile)
         {

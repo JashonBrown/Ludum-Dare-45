@@ -699,17 +699,23 @@
           </e>
         </e>
         <e p="Scripts" t="Include">
+          <e p="Characters" t="Include">
+            <e p="Character.cs" t="Include" />
+          </e>
           <e p="DataManager.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
           <e p="ProjectileScript.cs" t="Include" />
-          <e p="Raft.cs" t="Include" />
           <e p="ShipEditorButton.cs" t="Include" />
           <e p="ShipEditorController.cs" t="Include" />
-          <e p="ShipGenerator.cs" t="Include" />
-          <e p="Tile.cs" t="Include" />
-          <e p="TileData.cs" t="Include" />
+          <e p="Ships" t="Include">
+            <e p="Raft.cs" t="Include" />
+            <e p="ShipEncounter.cs" t="Include" />
+            <e p="ShipGenerator.cs" t="Include" />
+          </e>
           <e p="Tiles" t="Include">
             <e p="CannonScript.cs" t="Include" />
+            <e p="Tile.cs" t="Include" />
+            <e p="TileData.cs" t="Include" />
             <e p="TileScript.cs" t="Include" />
             <e p="TileType.cs" t="Include" />
           </e>
