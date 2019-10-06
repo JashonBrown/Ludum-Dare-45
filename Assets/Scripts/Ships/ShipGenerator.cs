@@ -45,7 +45,7 @@ public class ShipGenerator : MonoBehaviour {
         
         // ENEMY SETUP
         GenerateTiles();
-        InstantiateTiles(_enemies[0], _enemyObjects, enemyStartPosition.transform);
+        InstantiateTiles(_enemies[3], _enemyObjects, enemyStartPosition.transform);
         AttachTileHinges(_enemyObjects);
             
         foreach (var enemyObject in _enemyObjects) {
