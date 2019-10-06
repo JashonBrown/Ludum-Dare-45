@@ -25,22 +25,13 @@ public class ShipGenerator : MonoBehaviour {
     
     void Start()
     {
+        // PLAYER SETUP
         if (ArcadeMode) {
-            GenerateTiles();
-    
             var tiles = DataManager.Instance.PlayerRaft.Tiles;
+            _playerObjects = new GameObject[DataManager.Instance.RaftWidth, DataManager.Instance.RaftHeight];
             
             InstantiateTiles(tiles, _playerObjects, playerStartPosition.transform);
             AttachTileHinges(_playerObjects);
-            
-            InstantiateTiles(_enemies[DataManager.Instance.Level], _enemyObjects, enemyStartPosition.transform);
-            AttachTileHinges(_enemyObjects);
-            
-            foreach (var enemyObject in _enemyObjects) {
-                if (enemyObject != null) {
-                    enemyObject.transform.SetParent(enemyShip.transform);
-                }
-            }
             
             foreach (var playerObject in _playerObjects) {
                 if (playerObject != null) {
@@ -51,17 +42,34 @@ public class ShipGenerator : MonoBehaviour {
         else {
             GenerateEncounterShip(Ship);
         }
+        
+        // ENEMY SETUP
+        GenerateTiles();
+        InstantiateTiles(_enemies[0], _enemyObjects, enemyStartPosition.transform);
+        AttachTileHinges(_enemyObjects);
+            
+        foreach (var enemyObject in _enemyObjects) {
+            if (enemyObject != null) {
+                enemyObject.transform.SetParent(enemyShip.transform);
+            }
+        }
+
     }
 
     private void Update() {
+        var enemyTiles = enemyShip.GetComponentsInChildren<TileScript>();
+        if (enemyTiles.All(x => x.Tile.Type != TileType.Enemy)) {
+            enemyShip.GetComponent<Animator>().SetBool("Dead", true);
+        }
+
         if (ArcadeMode) {
-            var enemyTiles = enemyShip.GetComponentsInChildren<TileScript>();
-            if (enemyTiles.All(x => x.Tile.Type != TileType.Enemy)) {
-                enemyShip.GetComponent<Animator>().SetBool("Dead", true);
-            }
-            
             var playerTiles = playerShip.GetComponentsInChildren<TileScript>();
             if (playerTiles.All(x => x.Tile.Type != TileType.Player)) {
+                playerShip.GetComponent<Animator>().SetBool("Dead", true);
+            }
+        }
+        else {
+            if (Ship.MountPoints.All(x => x.GetComponentInChildren<TileScript>() == null)) {
                 playerShip.GetComponent<Animator>().SetBool("Dead", true);
             }
         }
@@ -79,11 +87,7 @@ public class ShipGenerator : MonoBehaviour {
     }
     
     private void GenerateTiles() {
-
-        _playerObjects = new GameObject[DataManager.Instance.RaftWidth, DataManager.Instance.RaftHeight];
-
         _enemyObjects = new GameObject[5,5];
-        
 
         var tile0 = new Tile(tileset[0].Type, 0, tileset[0].Sprites[0]);
         var tile1 = new Tile(tileset[1].Type, 0, tileset[1].Sprites[0]);
