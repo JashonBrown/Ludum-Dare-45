@@ -3,7 +3,12 @@ guid: 679cf6f0603ef9049a22488c9b22c2dd
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - inkAsset: {instanceID: 0}
+  - playerCharacter: {fileID: 11400000, guid: 5aae6601bc242964ab4afa93bf9ed3e6, type: 2}
+  - bugBeardCharacter: {fileID: 11400000, guid: c0b6c67dcffb73c4487bde2c97664085,
+      type: 2}
+  - bug2Character: {fileID: 11400000, guid: c001c7d2ce7345342ae34ec09acad9aa, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

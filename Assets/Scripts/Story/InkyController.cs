@@ -9,9 +9,9 @@ public class InkyController : MonoBehaviour
 
     private Story _inkStory;
 
-    public Character playerCharacter;
-    public Character bugBeardCharacter;
-    public Character bug2Character;
+    public StoryCharacter playerCharacter;
+    public StoryCharacter bugBeardCharacter;
+    public StoryCharacter bug2Character;
 
     private void Awake()
     {
@@ -38,7 +38,7 @@ public class InkyController : MonoBehaviour
         }
     }
 
-    private Character _GetCurrentCharacter()
+    private StoryCharacter _GetCurrentCharacter()
     {
         var tags = _inkStory.currentTags;
 

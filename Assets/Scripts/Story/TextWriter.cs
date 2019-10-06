@@ -27,7 +27,7 @@ public class TextWriter : MonoBehaviour
         _otherImage = otherImageGo.GetComponent<Image>();
     }
 
-    public void PrintText(string text, Character speaker)
+    public void PrintText(string text, StoryCharacter speaker)
     {
         fullText = text;
         currentText = "";
