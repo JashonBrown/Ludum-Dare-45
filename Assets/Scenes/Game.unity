@@ -522,10 +522,10 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 796581086}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 4e3a82d8918334650a6346a42cccded3, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a04567d956fb44c99a7a6734f2351d3c, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1008,6 +1008,7 @@ MonoBehaviour:
   enemyStartPosition: {fileID: 1078452293}
   playerShip: {fileID: 260466173}
   enemyShip: {fileID: 1767457527}
+  Dead: 0
 --- !u!4 &974144328
 Transform:
   m_ObjectHideFlags: 0
