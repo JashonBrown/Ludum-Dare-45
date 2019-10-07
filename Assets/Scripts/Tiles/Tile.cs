@@ -7,7 +7,7 @@ namespace LudumDare
     public class Tile
     {
         public TileType Type { get; set; }
-        public int Health => Tier + 1;
+        public int Health => Tier + (Type == TileType.Wall ? 2 : 1);
         public int Tier { get; set; }
 
         public Sprite Sprite { get; set; }

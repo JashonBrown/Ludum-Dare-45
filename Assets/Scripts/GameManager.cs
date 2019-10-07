@@ -22,14 +22,17 @@ public class GameManager : MonoBehaviour
     # endregion
 
     public void Win() {
-        DataManager.Instance.Money += 100;
         DataManager.Instance.Level++;
+        if (DataManager.Instance.Level > 11) SceneManager.LoadScene("Win Screen");
+        
+        DataManager.Instance.Money += DataManager.Instance.Level * 50;
         SceneManager.LoadScene("Ship Editor");
     }
 
     public void Lose() {
-        DataManager.Instance.Money = 0;
+        DataManager.Instance.Money = 200;
         DataManager.Instance.Level = 0;
+        DataManager.Instance.PlayerRaft = new Raft(DataManager.Instance.RaftWidth, DataManager.Instance.RaftHeight);;
         SceneManager.LoadScene("Main Menu");        
     }
 }

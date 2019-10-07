@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace LudumDare
 {
-    public class ShipEditorButton : MonoBehaviour
+    public class ShipEditorButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         public Image image;
         public int indexI;
@@ -27,7 +26,7 @@ namespace LudumDare
                 Tile currentTile = DataManager.Instance.PlayerRaft.Tiles[i, j];
 
                 // Increment walls tier?
-                if (selectedTile.Type == TileType.Wall && currentTile != null && currentTile.Type == TileType.Wall)
+                if (currentTile != null && currentTile.Type == selectedTile.Type)
                 {
                     // Don't upgrade
                     if (currentTile.Tier == 2) return;
@@ -37,7 +36,9 @@ namespace LudumDare
                         DataManager.Instance.Money -= selectedTile.Costs[currentTile.Tier + 1];
                         currentTile.Tier++;
                         currentTile.Sprite = selectedTile.Sprites[currentTile.Tier];
+                        
                         ShipEditorController.Instance.UpdateMoney();
+                        ShipEditorController.Instance.UpdateTooltip(currentTile);
                     }
                     else {
                         return;
@@ -47,7 +48,9 @@ namespace LudumDare
                 else if (selectedTile.Costs[0] <= DataManager.Instance.Money) {
                     DataManager.Instance.Money -= selectedTile.Costs[0];
                     DataManager.Instance.PlayerRaft.Tiles[i, j] = new Tile(selectedTile.Type, 0, selectedTile.Sprites[0]);
-                    ShipEditorController.Instance.UpdateMoney();
+                    
+                    ShipEditorController.Instance.UpdateMoney(); 
+                    ShipEditorController.Instance.UpdateTooltip(DataManager.Instance.PlayerRaft.Tiles[i, j]);
                 }
                 else {
                     return;
@@ -56,11 +59,18 @@ namespace LudumDare
                 _UpdateVisual();
             });
         }
+        
+        public void OnPointerEnter(PointerEventData eventData) {
+            ShipEditorController.Instance.UpdateTooltip(DataManager.Instance.PlayerRaft.Tiles[indexI,indexJ]);
+        }
+        
+        public void OnPointerExit(PointerEventData eventData) {
+            ShipEditorController.Instance.ClearTooltip();
+        }
 
         // ---------------------------------------------------------------------
 
-        private void _UpdateVisual()
-        {
+        private void _UpdateVisual() {
             var tile = DataManager.Instance.PlayerRaft.Tiles[indexI, indexJ];
 
             // Is tile empty?
@@ -68,8 +78,7 @@ namespace LudumDare
                 image.sprite = DataManager.Instance.DefaultSlotImage;
             }
             // Is a wall?
-            else if (tile.Type == TileType.Wall)
-            {
+            else if (tile.Type == TileType.Wall) {
                 var newTile = DataManager.Instance.GetWallDataByTier(tile.Tier);
 
                 // Skip if nothing here brah

@@ -5,6 +5,7 @@
         Player,
         Wall,
         Ally,
-        Enemy
+        Enemy,
+        Cannon
     }
 }

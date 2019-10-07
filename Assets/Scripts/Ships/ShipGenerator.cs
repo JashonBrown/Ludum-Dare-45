@@ -45,7 +45,7 @@ public class ShipGenerator : MonoBehaviour {
         
         // ENEMY SETUP
         GenerateTiles();
-        InstantiateTiles(_enemies[3], _enemyObjects, enemyStartPosition.transform);
+        InstantiateTiles(_enemies[DataManager.Instance.Level], _enemyObjects, enemyStartPosition.transform);
         AttachTileHinges(_enemyObjects);
             
         foreach (var enemyObject in _enemyObjects) {
@@ -64,7 +64,7 @@ public class ShipGenerator : MonoBehaviour {
 
         if (ArcadeMode) {
             var playerTiles = playerShip.GetComponentsInChildren<TileScript>();
-            if (playerTiles.All(x => x.Tile.Type != TileType.Player)) {
+            if (playerTiles.All(x => x.Tile.Type != TileType.Cannon)) {
                 playerShip.GetComponent<Animator>().SetBool("Dead", true);
             }
         }
@@ -89,37 +89,99 @@ public class ShipGenerator : MonoBehaviour {
     private void GenerateTiles() {
         _enemyObjects = new GameObject[5,5];
 
-        var tile0 = new Tile(tileset[0].Type, 0, tileset[0].Sprites[0]);
-        var tile1 = new Tile(tileset[1].Type, 0, tileset[1].Sprites[0]);
+        var wall0 = new Tile(tileset[0].Type, 0, tileset[0].Sprites[0]);
+        var wall1 = new Tile(tileset[0].Type, 1, tileset[0].Sprites[1]);
+        var wall2 = new Tile(tileset[0].Type, 2, tileset[0].Sprites[2]);
+        
+        var cannon0 = new Tile(tileset[1].Type, 0, tileset[1].Sprites[0]);
+        var cannon1 = new Tile(tileset[1].Type, 1, tileset[1].Sprites[1]);
+        var cannon2 = new Tile(tileset[1].Type, 2, tileset[1].Sprites[2]);
+        
         
         _enemies = new []{ 
             new[,] {
-                {tile0, tile1, null, null, null},
-                {tile0, null, null, null, null},
-                {tile0, null, null, null, null},
                 {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new[,] {
-                {tile0, null, null, null, null},
-                {tile0, tile0, tile1, null, null},
-                {tile0, null, null, null, null},
-                {tile0, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new[,] {
-                {tile0, tile1, null, null, null},
-                {tile0, tile0, tile0, tile1, null},
-                {tile0, null, null, null, null},
+                {wall0, cannon0, null, null, null},
                 {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
             },
             new[,] {
-                {tile0, tile1, null, null, null},
-                {tile0, null, null, null, null},
-                {tile0, tile0, tile1, null, null},
-                {tile0, null, null, null, null},
-                {tile0, tile0, tile0, tile1, null}
+                {null, null, null, null, null},
+                {wall0, cannon0, wall0, null, null},
+                {wall0, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+            },
+            new[,] {
+                {wall0, null, null, null, null},
+                {wall0, cannon0, null, null, null},
+                {wall0, wall0, cannon0, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+            },
+            new[,] {
+                {cannon0, null, null, null, null},
+                {wall0, wall0, cannon0, null, null},
+                {wall0, wall0, null, null, null},
+                {wall0, null, null, null, null},
+                {null, null, null, null, null},
+            },
+            new[,] {
+                {cannon0, null, null, null, null},
+                {wall0, wall0, cannon0, cannon0, null},
+                {wall0, wall0, null, null, null},
+                {wall0, null, null, null, null},
+                {null, null, null, null, null},
+            },
+            new[,] {
+                {cannon0, wall1, null, null, null},
+                {wall0, wall1, cannon0, null, null},
+                {wall0, wall0, null, null, null},
+                {wall0, null, null, null, null},
+                {null, null, null, null, null},
+            },
+            new[,] {
+                {cannon0, wall1, null, null, null},
+                {wall0, wall1, cannon1, null, null},
+                {wall0, wall0, null, null, null},
+                {wall0, null, null, null, null},
+                {null, null, null, null, null},
+            },
+            new[,] {
+                {cannon0, wall1, null, null, null},
+                {wall0, wall1, cannon1, wall1, null},
+                {wall0, wall0, null, null, null},
+                {wall0, null, null, null, null},
+                {null, null, null, null, null},
+            },
+            new[,] {
+                {cannon1, cannon0, null, null, null},
+                {wall0, wall1, cannon1, wall1, null},
+                {wall0, wall0, null, null, null},
+                {wall0, null, null, null, null},
+                {null, null, null, null, null},
+            },
+            new[,] {
+                {cannon1, cannon0, null, null, null},
+                {wall1, wall1, cannon1, wall1, cannon0},
+                {cannon0, wall1, wall1, null, null},
+                {wall0, null, null, null, null},
+                {null, null, null, null, null},
+            },
+            new[,] {
+                {cannon1, cannon0, null, null, null},
+                {wall1, wall1, cannon1, wall2, cannon1},
+                {cannon0, wall2, wall1, null, null},
+                {wall0, null, null, null, null},
+                {wall0, wall1, null, null, null},
+            },
+            new[,] {
+                {cannon1, cannon0, null, null, null},
+                {wall1, wall1, cannon2, wall2, cannon1},
+                {cannon0, wall2, wall1, null, null},
+                {wall0, null, null, null, null},
+                {wall0, wall1, null, null, null},
             },
         };
     }
@@ -156,13 +218,13 @@ public class ShipGenerator : MonoBehaviour {
                 
                 var hinges = tileObjects[i, j].GetComponents<HingeJoint2D>();
                 var tileScript = tileObjects[i, j].GetComponent<TileScript>();
-                
+                tileScript.AdjacentTileObjects = new GameObject[8];
                 try {
                     var obj = tileObjects[i - 1, j - 1];
                     if (obj != null) {
                         hinges[0].connectedBody = obj.GetComponent<Rigidbody2D>();
                         hinges[0].enabled = true;
-                        tileScript.AdjacentTileObjects.Add(obj);
+                        tileScript.AdjacentTileObjects[0] = obj;
                     }
                 } catch(Exception) {}
                 
@@ -171,7 +233,7 @@ public class ShipGenerator : MonoBehaviour {
                     if (obj != null) {
                         hinges[1].connectedBody = obj.GetComponent<Rigidbody2D>();
                         hinges[1].enabled = true;
-                        tileScript.AdjacentTileObjects.Add(obj);
+                        tileScript.AdjacentTileObjects[1] = obj;
                     }
                 } catch(Exception) {}
                 
@@ -180,7 +242,7 @@ public class ShipGenerator : MonoBehaviour {
                     if (obj != null) {
                         hinges[2].connectedBody = obj.GetComponent<Rigidbody2D>();
                         hinges[2].enabled = true;
-                        tileScript.AdjacentTileObjects.Add(obj);
+                        tileScript.AdjacentTileObjects[2] = obj;
                     }
                 } catch(Exception) {}
                 
@@ -189,7 +251,7 @@ public class ShipGenerator : MonoBehaviour {
                     if (obj != null) {
                         hinges[3].connectedBody = obj.GetComponent<Rigidbody2D>();
                         hinges[3].enabled = true;
-                        tileScript.AdjacentTileObjects.Add(obj);
+                        tileScript.AdjacentTileObjects[3] = obj;
                     }
                 } catch(Exception) {}
                 
@@ -198,7 +260,7 @@ public class ShipGenerator : MonoBehaviour {
                     if (obj != null) {
                         hinges[4].connectedBody = obj.GetComponent<Rigidbody2D>();
                         hinges[4].enabled = true;
-                        tileScript.AdjacentTileObjects.Add(obj);
+                        tileScript.AdjacentTileObjects[4] = obj;
                     }
                 } catch(Exception) {}
                 
@@ -207,7 +269,7 @@ public class ShipGenerator : MonoBehaviour {
                     if (obj != null) {
                         hinges[5].connectedBody = obj.GetComponent<Rigidbody2D>();
                         hinges[5].enabled = true;
-                        tileScript.AdjacentTileObjects.Add(obj);
+                        tileScript.AdjacentTileObjects[5] = obj;
                     }
                 } catch(Exception) {}
                 
@@ -216,7 +278,7 @@ public class ShipGenerator : MonoBehaviour {
                     if (obj != null) {
                         hinges[6].connectedBody = obj.GetComponent<Rigidbody2D>();
                         hinges[6].enabled = true;
-                        tileScript.AdjacentTileObjects.Add(obj);
+                        tileScript.AdjacentTileObjects[6] = obj;
                     }
                 } catch(Exception) {}
                 
@@ -225,7 +287,7 @@ public class ShipGenerator : MonoBehaviour {
                     if (obj != null) {
                         hinges[7].connectedBody = obj.GetComponent<Rigidbody2D>();
                         hinges[7].enabled = true;
-                        tileScript.AdjacentTileObjects.Add(obj);
+                        tileScript.AdjacentTileObjects[7] = obj;
                     }
                 } catch(Exception) {}
             }

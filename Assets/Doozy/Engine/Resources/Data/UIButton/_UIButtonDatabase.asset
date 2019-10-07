@@ -15,12 +15,14 @@ MonoBehaviour:
   DatabaseType: 0
   CategoryNames:
   - Custom
+  - Game
   - General
   - Main Menu
   - Ship Editor
-  - Game
+  - Win
   Categories:
+  - {fileID: 11400000, guid: 3bb333db28c0ea84dabc0ba71d030dbc, type: 2}
   - {fileID: 11400000, guid: 897a05cdd94139a408388d32605fb311, type: 2}
   - {fileID: 11400000, guid: c1b5f64d891b0784e8f434f94e5f65dc, type: 2}
   - {fileID: 11400000, guid: 458c97d192600d34e82a12d60f3f7f78, type: 2}
-  - {fileID: 11400000, guid: 3bb333db28c0ea84dabc0ba71d030dbc, type: 2}
+  - {fileID: 11400000, guid: 887b8abfe8b8e421ca7d4d878ad3d0c3, type: 2}
