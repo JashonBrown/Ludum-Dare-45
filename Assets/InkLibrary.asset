@@ -101,5 +101,13 @@ MonoBehaviour:
     inkAsset: {fileID: 102900000, guid: 9cee807f80415be419d3edab0653bfc4, type: 3}
     jsonAssetPath: {fileID: 0}
     jsonAsset: {fileID: 4900000, guid: 919bffc90df02e442881b1ecaf02e84b, type: 3}
+  - compileAutomatically: 0
+    inkAsset: {fileID: 102900000, guid: 7ac20f55fb5b3e747ab9273f202343e1, type: 3}
+    jsonAssetPath: {fileID: 0}
+    jsonAsset: {fileID: 4900000, guid: 1ee4e21a29f460941ae05ffad0998e81, type: 3}
+  - compileAutomatically: 0
+    inkAsset: {fileID: 102900000, guid: eab1f889a7d1d3f44aca4fc28dba8de7, type: 3}
+    jsonAssetPath: {fileID: 0}
+    jsonAsset: {fileID: 4900000, guid: c9467b53aa34d99419f393489010508f, type: 3}
   pendingCompilationStack: []
   compilationStack: []

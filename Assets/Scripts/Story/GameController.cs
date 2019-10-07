@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour
     public bool bug4Complete = false;
     public bool bug5Complete = false;
     public bool bug6Complete = false;
+    public bool isMeeting = false;
 
     public GameObject Bug1Island;
     public GameObject Bug2Island;
@@ -51,8 +52,13 @@ public class GameController : MonoBehaviour
     public TextAsset bug6No;
     public TextAsset bug6Full;
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    public TextAsset winConvo;
+    public TextAsset loseConvo;
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     private int _currentBug = 0;
     [SerializeField] private int _currentSlot = 1;
+
+    public List<int> bugsInBoat = new List<int>();
 
     public UIView startView;
 
@@ -69,39 +75,40 @@ public class GameController : MonoBehaviour
     {
         var distanceTravelled = ObjectReferencer.Instance.ship.distanceCovered;
 
-        if (!bug1Complete && distanceTravelled > 2)
+        if (!bug1Complete && distanceTravelled > 1)
         {
             bug1Complete = true;
             _BugEvent(1);
         }
-        else if (!bug2Complete && distanceTravelled > 5)
+        else if (!bug2Complete && distanceTravelled > 2)
         {
             bug2Complete = true;
             _BugEvent(2);
         }
-        else if (!bug3Complete && distanceTravelled > 8)
+        else if (!bug3Complete && distanceTravelled > 3)
         {
             bug3Complete = true;
             _BugEvent(3);
         }
-        else if (!bug4Complete && distanceTravelled > 11)
+        else if (!bug4Complete && distanceTravelled > 4)
         {
              bug4Complete = true;
             _BugEvent(4);
         }
-        else if (!bug5Complete && distanceTravelled > 14)
+        else if (!bug5Complete && distanceTravelled > 5)
         {
              bug5Complete = true;
             _BugEvent(5);
         }
-        else if (!bug6Complete && distanceTravelled > 17)
+        else if (!bug6Complete && distanceTravelled > 6)
         {
-              bug6Complete = true;
+             bug6Complete = true;
             _BugEvent(6);
         }
-        else if (distanceTravelled > 20)
+        else if (!isMeeting && distanceTravelled > 7)
         {
-
+            isMeeting = true;
+            _DoEndOfLineActions();
         }
     }
 
@@ -137,7 +144,6 @@ public class GameController : MonoBehaviour
         switch (_currentBug)
         {
             case 1:
-                
                 ObjectReferencer.Instance.inkyController.StartConversation(bug1Yes, false);
                 break;
             case 2:
@@ -158,6 +164,8 @@ public class GameController : MonoBehaviour
         }
 
         ObjectReferencer.Instance.inkyController.isShowingChoices = false;
+
+        bugsInBoat.Add(_currentBug);
 
         // Play onboard nimation
         _PlayOnboardAnimation();
@@ -217,6 +225,7 @@ public class GameController : MonoBehaviour
     private void _PlayOnboardAnimation()
     {
         ObjectReferencer.Instance.isPlayingOnboardAnimation = true;
+        GetComponent<AudioSource>().Play();
 
         GameObject islandGo = null;
 
@@ -290,6 +299,34 @@ public class GameController : MonoBehaviour
         islandGo.SetActive(true);
         _DoDelayBugAnimation(num);
         Invoke(convoString, 2);
+    }
+
+    // ---------------------------------------------------------------------
+
+    private void _DoEndOfLineActions()
+    {
+        isMeeting = true;
+        ObjectReferencer.Instance.CanMove = false;
+
+        ObjectReferencer.Instance.ship.GetComponent<Animator>().SetBool("meeting", true);
+
+        Invoke("killme", 2);
+    }
+
+    // ---------------------------------------------------------------------
+
+    public void killme()
+    {
+        ObjectReferencer.Instance.inkyController.isEnd = true;
+
+        if (_currentSlot >= 4)
+        {
+            ObjectReferencer.Instance.inkyController.StartConversation(winConvo, false, true);
+        }
+        else
+        {
+            ObjectReferencer.Instance.inkyController.StartConversation(loseConvo, false, true);
+        }
     }
 
     // ---------------------------------------------------------------------

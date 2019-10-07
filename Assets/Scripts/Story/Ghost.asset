@@ -9,14 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f42f06ff6cc543ea942180e019f0fc8d, type: 3}
-  m_Name: UIButton_MainMenu
+  m_Script: {fileID: 11500000, guid: 28540f8c82335884ca634ecb95432f4e, type: 3}
+  m_Name: Ghost
   m_EditorClassIdentifier: 
-  CategoryName: Main Menu
-  DatabaseType: 0
-  Names:
-  - Arcade
-  - Credits
-  - Home
-  - Play
-  - Story
+  Name: Ghost
+  sprite: {fileID: 21300000, guid: 757ef742c6c6947ab93a9c9fd7f8612a, type: 3}
+  portraitSprite: {fileID: 21300000, guid: e20a47702dd1df947ad49308f0720f38, type: 3}
+  IsPlayer: 0
