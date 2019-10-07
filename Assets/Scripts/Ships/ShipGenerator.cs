@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using LudumDare;
+using Sirenix.Serialization;
 using UnityEngine;
 
 public class ShipGenerator : MonoBehaviour {
@@ -22,6 +23,9 @@ public class ShipGenerator : MonoBehaviour {
 
     public GameObject playerShip;
     public GameObject enemyShip;
+
+    public bool Dead;
+    
     
     void Start()
     {
@@ -53,23 +57,30 @@ public class ShipGenerator : MonoBehaviour {
                 enemyObject.transform.SetParent(enemyShip.transform);
             }
         }
-
     }
 
     private void Update() {
+        if (Dead) return;
+        
         var enemyTiles = enemyShip.GetComponentsInChildren<TileScript>();
         if (enemyTiles.All(x => x.Tile.Type != TileType.Enemy)) {
+            GetComponent<AudioSource>().Play();
+            Dead = true;
             enemyShip.GetComponent<Animator>().SetBool("Dead", true);
         }
 
         if (ArcadeMode) {
             var playerTiles = playerShip.GetComponentsInChildren<TileScript>();
             if (playerTiles.All(x => x.Tile.Type != TileType.Cannon)) {
+                Dead = true;
+                GetComponent<AudioSource>().Play();
                 playerShip.GetComponent<Animator>().SetBool("Dead", true);
             }
         }
         else {
             if (Ship.MountPoints.All(x => x.GetComponentInChildren<TileScript>() == null)) {
+                Dead = true;
+                GetComponent<AudioSource>().Play();
                 playerShip.GetComponent<Animator>().SetBool("Dead", true);
             }
         }
