@@ -1,4 +1,8 @@
 #g
-Bro you suck
+HA! I knew ye were too green around the antennae to take slaves. You and your parens will have to do then.
+
 #p
-aww man
+NOOOOOOOOOOOOOOOOOOOOO!
+
+#p
+At least I still have my morals!

@@ -5734,8 +5734,12 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Hello I am ghost man. If you wanna get your family back then you'll need
-    to get me some slave kiddos. Go yoink some boiyos from islands randomly!!
+  m_Text: 'Oh no!! Your parents have been taken captive and enslaved by the dreadful
+    pirate captain Larvy Jones. But... if you bring 3 other bugs to serve as their
+    replacements he will let them go free!
+
+
+    Are you up for the challenge matey?'
 --- !u!222 &1840261873
 CanvasRenderer:
   m_ObjectHideFlags: 0

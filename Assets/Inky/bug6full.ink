@@ -1,6 +1,14 @@
-#p
-We are already a tight fit sorry
 #b6
-I reckon we can squeeeeze
+Room for 1 more?
+
 #p
-sorry nope
+We are already a very tight fit
+
+#b6
+I reckon I could squeeeeeeeze in...
+
+#p
+I'll be sure to pick you up next time round!
+
+#b6
+I'll be waiting!

@@ -75,37 +75,37 @@ public class GameController : MonoBehaviour
     {
         var distanceTravelled = ObjectReferencer.Instance.ship.distanceCovered;
 
-        if (!bug1Complete && distanceTravelled > 1)
+        if (!bug1Complete && distanceTravelled > 1.5)
         {
             bug1Complete = true;
             _BugEvent(1);
         }
-        else if (!bug2Complete && distanceTravelled > 2)
+        else if (!bug2Complete && distanceTravelled > 3.5)
         {
             bug2Complete = true;
             _BugEvent(2);
         }
-        else if (!bug3Complete && distanceTravelled > 3)
+        else if (!bug3Complete && distanceTravelled > 5.5)
         {
             bug3Complete = true;
             _BugEvent(3);
         }
-        else if (!bug4Complete && distanceTravelled > 4)
+        else if (!bug4Complete && distanceTravelled > 7.5)
         {
              bug4Complete = true;
             _BugEvent(4);
         }
-        else if (!bug5Complete && distanceTravelled > 5)
+        else if (!bug5Complete && distanceTravelled > 9.5)
         {
              bug5Complete = true;
             _BugEvent(5);
         }
-        else if (!bug6Complete && distanceTravelled > 6)
+        else if (!bug6Complete && distanceTravelled > 11.5)
         {
              bug6Complete = true;
             _BugEvent(6);
         }
-        else if (!isMeeting && distanceTravelled > 7)
+        else if (!isMeeting && distanceTravelled > 13.5)
         {
             isMeeting = true;
             _DoEndOfLineActions();

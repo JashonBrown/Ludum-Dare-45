@@ -1,4 +1,8 @@
-#p
-Why u dere?!
 #b2
-Fuck bro idk giz a lift
+Jormunjo travererr! Help help?
+
+#p
+Sorry? have you had your tongue pruned?
+
+#b2
+Squeoooo!!! Umja gonjo be a pirate!! Need crew but stuck inji big water. Help help!! Yes??
