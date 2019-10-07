@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +13,7 @@ namespace LudumDare
         public GameObject editorTilePrefab;
         [NonSerialized] public TileData selectedTile;
         public Text MoneyText;
+        public Text TooltipText;
 
         private void Awake()
         {
@@ -63,5 +63,38 @@ namespace LudumDare
             selectedTile = tileData;
         }
 
+        public void UpdateTooltip(TileData tileData) {
+            if (tileData == null) return;
+
+            ClearTooltip();
+            
+            TooltipText.text += tileData.Type + "\n";
+            TooltipText.text += $"Costs: {string.Join(", ", tileData.Costs.Select(x => $"${x.ToString()}"))}";
+        }
+        
+        public void UpdateTooltip(Tile tile) {
+            if (tile == null) return;
+            
+            ClearTooltip();
+            
+            TooltipText.text += tile.Type + "\n";
+            TooltipText.text += $"Tier: {tile.Tier + 1}\n";
+
+            if (selectedTile.Type == tile.Type) {
+                if (tile.Tier == 2) {
+                    TooltipText.text += "Fully upgraded!";
+                }
+                else {
+                    TooltipText.text += $"Click to upgrade to tier {tile.Tier + 2} for ${selectedTile.Costs[tile.Tier + 1]}";
+                }
+            }
+            else {
+                TooltipText.text += $"Click to replace with {selectedTile.Type} for ${selectedTile.Costs[0]}";
+            }
+        }
+
+        public void ClearTooltip() {
+            TooltipText.text = "";
+        }
     }
 }

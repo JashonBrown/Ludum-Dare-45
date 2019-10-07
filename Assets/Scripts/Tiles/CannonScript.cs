@@ -1,21 +1,25 @@
 using System.Collections;
+using Sirenix.Utilities;
 using UnityEngine;
 
 namespace LudumDare {
     class CannonScript : MonoBehaviour {
-        [SerializeField]
-        private GameObject projectilePrefab;
+        [SerializeField] private GameObject projectilePrefab;
         [SerializeField] private GameObject cannon;
         [SerializeField] private Transform firingPoint;
+        [SerializeField] private int cannonForce;
         
         private Tile Tile;
         
-        
-        public int cooldown => 3;
+        private float MaxCooldown => 4f;// / (Tile?.Tier + 1 ?? 1);
+        private float MinCooldown => 2f;// / (Tile?.Tier + 1 ?? 1);
 
         private void Start() {
             StartCoroutine(AimAndAttack());
             Tile = GetComponent<TileScript>().Tile;
+            if (Tile.Type == TileType.Enemy) {
+                transform.Rotate(new Vector3(0,1,0), 180f);
+            }
         }
 
         private Vector2 AimAtCursor() {
@@ -25,7 +29,7 @@ namespace LudumDare {
         }
 
         private void Update() {
-            if (Tile.Type == TileType.Player) {
+            if (Tile.Type == TileType.Cannon) {
                 var destination = AimAtCursor();
                 var yDiff = transform.position.y - destination.y;
                 var xDiff = transform.position.x - destination.x;
@@ -35,24 +39,34 @@ namespace LudumDare {
             }
         }
 
+        protected IEnumerator Fire(Vector3 force, float timeToWait) {
+            yield return new  WaitForSeconds(timeToWait);
+            var projectile = Instantiate(projectilePrefab, firingPoint.position, Quaternion.identity);
+            projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.Normalize(force) * cannonForce);
+            GetComponent<AudioSource>().Play();
+        }
+
         protected IEnumerator AimAndAttack() {
-            yield return new WaitForSeconds(Random.Range(1f, cooldown));
+            yield return new WaitForSeconds(Random.Range(MinCooldown, MaxCooldown));
 
             var direction = Tile.Type == TileType.Enemy? -1 : 1;
-            var position = new Vector3(transform.position.x + 3f * direction, transform.position.y, 0);
-            Vector2 force = new Vector2();
-            
-            if (Tile.Type == TileType.Enemy) {
-                force = new Vector2(Random.Range(200, 800) * direction, Random.Range(200, 800));
+
+            if (GetComponent<TileScript>().AdjacentTileObjects[direction == 1 ? 6 : 1] == null) {
+                var position = new Vector3(transform.position.x + 3f * direction, transform.position.y, 0);
+                var force = new Vector2();
+                
+                if (Tile.Type == TileType.Enemy) {
+                    force = new Vector2(60 * direction, Random.Range(0, 60));
+                }
+                else {
+                    var destination = AimAtCursor();
+                    force = destination - new Vector2(position.x, position.y);
+                }
+
+                for (var i = 0; i < Tile.Tier + 1; i++) {
+                    StartCoroutine(Fire(force, i / 3f));
+                }
             }
-            else {
-                var destination = AimAtCursor();
-                force = destination - new Vector2(position.x, position.y);
-            }
-            
-            var projectile = Instantiate(projectilePrefab, firingPoint.position, Quaternion.identity);
-            projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.Normalize(force) * 1000);
-            GetComponent<AudioSource>().Play();
             
             // Restart
             StartCoroutine(AimAndAttack());

@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="$PROJECT_DIR$" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Demigiant" t="Include">
@@ -676,7 +678,100 @@
           <e p="readme.txt" t="Include" />
         </e>
         <e p="Plugins" t="Include">
+          <e p="Ink" t="Include">
+            <e p="Editor" t="Include">
+              <e p="Compiler" t="Include">
+                <e p="Auto Compiler" t="Include">
+                  <e p="InkPostProcessor.cs" t="Include" />
+                </e>
+                <e p="InkCompiler.cs" t="Include" />
+              </e>
+              <e p="Ink Inspector" t="Include">
+                <e p="File Icons" t="Include">
+                  <e p="InkBrowserIcons.cs" t="Include" />
+                </e>
+                <e p="Ink Inspector" t="Include">
+                  <e p="DefaultAssetEditor.cs" t="Include" />
+                  <e p="DefaultAssetInspector.cs" t="Include" />
+                  <e p="InkInspector.cs" t="Include" />
+                </e>
+              </e>
+              <e p="Ink Library" t="Include">
+                <e p="InkFile.cs" t="Include" />
+                <e p="InkLibrary.cs" t="Include" />
+                <e p="InkLibraryEditor.cs" t="Include" />
+                <e p="InkMetaFile.cs" t="Include" />
+                <e p="InkMetaLibrary.cs" t="Include" />
+              </e>
+              <e p="Ink Settings" t="Include">
+                <e p="InkSettings.cs" t="Include" />
+                <e p="InkSettingsEditor.cs" t="Include" />
+              </e>
+              <e p="InkPreBuildValidationCheck.cs" t="Include" />
+              <e p="Player Window" t="Include">
+                <e p="InkPlayerWindow.cs" t="Include" />
+              </e>
+              <e p="Resources" t="Include">
+                <e p="InkDefaultTemplate.txt" t="Include" />
+              </e>
+              <e p="Tools" t="Include">
+                <e p="InkEditorUtils.cs" t="Include" />
+              </e>
+            </e>
+            <e p="Example" t="Include">
+              <e p="Scripts" t="Include">
+                <e p="BasicInkExample.cs" t="Include" />
+                <e p="Editor" t="Include">
+                  <e p="BasicInkExampleEditor.cs" t="Include" />
+                </e>
+                <e p="QuitGameOnKeypress.cs" t="Include" />
+              </e>
+            </e>
+            <e p="InkRuntime" t="Include">
+              <e p="CallStack.cs" t="Include" />
+              <e p="Choice.cs" t="Include" />
+              <e p="ChoicePoint.cs" t="Include" />
+              <e p="Container.cs" t="Include" />
+              <e p="ControlCommand.cs" t="Include" />
+              <e p="DebugMetadata.cs" t="Include" />
+              <e p="Divert.cs" t="Include" />
+              <e p="Glue.cs" t="Include" />
+              <e p="INamedContent.cs" t="Include" />
+              <e p="Ink-Runtime.asmdef" t="Include" />
+              <e p="InkList.cs" t="Include" />
+              <e p="JsonSerialisation.cs" t="Include" />
+              <e p="ListDefinition.cs" t="Include" />
+              <e p="ListDefinitionsOrigin.cs" t="Include" />
+              <e p="NativeFunctionCall.cs" t="Include" />
+              <e p="Object.cs" t="Include" />
+              <e p="Path.cs" t="Include" />
+              <e p="Pointer.cs" t="Include" />
+              <e p="Profiler.cs" t="Include" />
+              <e p="PushPop.cs" t="Include" />
+              <e p="SearchResult.cs" t="Include" />
+              <e p="SimpleJson.cs" t="Include" />
+              <e p="StatePatch.cs" t="Include" />
+              <e p="Story.cs" t="Include" />
+              <e p="StoryException.cs" t="Include" />
+              <e p="StoryState.cs" t="Include" />
+              <e p="StringJoinExtension.cs" t="Include" />
+              <e p="Tag.cs" t="Include" />
+              <e p="Value.cs" t="Include" />
+              <e p="VariableAssignment.cs" t="Include" />
+              <e p="VariableReference.cs" t="Include" />
+              <e p="VariablesState.cs" t="Include" />
+              <e p="Void.cs" t="Include" />
+            </e>
+          </e>
           <e p="Sirenix" t="Include">
+            <e p="Assemblies" t="Include">
+              <e p="link.xml" t="Include" />
+              <e p="Sirenix.OdinInspector.Attributes.xml" t="Include" />
+              <e p="Sirenix.OdinInspector.Editor.xml" t="Include" />
+              <e p="Sirenix.Serialization.Config.xml" t="Include" />
+              <e p="Sirenix.Utilities.Editor.xml" t="Include" />
+              <e p="Sirenix.Utilities.xml" t="Include" />
+            </e>
             <e p="Odin Inspector" t="Include">
               <e p="Scripts" t="Include">
                 <e p="Editor" t="Include">
@@ -696,6 +791,7 @@
                 <e p="VectorIntFormatters.cs" t="Include" />
               </e>
             </e>
+            <e p="readme.txt" t="Include" />
           </e>
         </e>
         <e p="Scripts" t="Include">
@@ -712,6 +808,13 @@
             <e p="ShipEncounter.cs" t="Include" />
             <e p="ShipGenerator.cs" t="Include" />
           </e>
+          <e p="Story" t="Include">
+            <e p="InkyController.cs" t="Include" />
+            <e p="ObjectReferencer.cs" t="Include" />
+            <e p="StoryCharacter.cs" t="Include" />
+            <e p="StoryShip.cs" t="Include" />
+            <e p="TextWriter.cs" t="Include" />
+          </e>
           <e p="Tiles" t="Include">
             <e p="CannonScript.cs" t="Include" />
             <e p="Tile.cs" t="Include" />
@@ -721,7 +824,9 @@
           </e>
         </e>
         <e p="WinController.cs" t="Include" />
+        <e p="WinGameScriptFuck.cs" t="Include" />
       </e>
+      <e p="Ink-Runtime.csproj" t="IncludeRecursive" />
       <e p="Library" t="ExcludeRecursive" />
       <e p="Ludum-Dare-45.sln" t="IncludeFlat" />
       <e p="obj" t="ExcludeRecursive" />

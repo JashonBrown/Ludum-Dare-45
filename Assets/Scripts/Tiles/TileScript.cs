@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Sirenix.Utilities;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace LudumDare {
     {
         public Tile Tile;
         public int health;
-        public List<GameObject> AdjacentTileObjects;
+        public GameObject[] AdjacentTileObjects;
 
         public void Start() {
             Init(Tile);
@@ -15,11 +16,13 @@ namespace LudumDare {
         
         public void Init(Tile tile)
         {
-            health = tile.Health;
             Tile = tile;
+            health = Tile.Health;
             var sr = GetComponent<SpriteRenderer>();
-            sr.sprite = tile.Sprite;
-            sr.flipX = tile.Type == TileType.Enemy;
+            sr.sprite = Tile.Sprite;
+            if (Tile.Type == TileType.Enemy) {
+                transform.Rotate(new Vector3(0,1,0), 180f);
+            }
         }
 
         private void Update() {
@@ -33,7 +36,7 @@ namespace LudumDare {
         }
 
         private void OnCollisionEnter2D(Collision2D other) {
-            if (AdjacentTileObjects.Contains(other.gameObject) || other.gameObject.CompareTag("Ground")) return;
+            if (AdjacentTileObjects.Any(x => x != null && x.Equals(other.gameObject)) || other.gameObject.CompareTag("Ground")) return;
             if (other.gameObject.CompareTag("Death")) health = 0;
             health -= 1;
         }
