@@ -87,7 +87,7 @@ public class InkyController : MonoBehaviour
             }
             else if (isEnd && ObjectReferencer.Instance.gameController.bugsInBoat.Count < 3)
             {
-                // LOSE
+                SceneManager.LoadScene("Lose Screen");
             }
         }
     }

@@ -225,7 +225,7 @@ public class GameController : MonoBehaviour
     private void _PlayOnboardAnimation()
     {
         ObjectReferencer.Instance.isPlayingOnboardAnimation = true;
-        GetComponent<AudioSource>().Play();
+        //GetComponent<AudioSource>().Play();
 
         GameObject islandGo = null;
 
