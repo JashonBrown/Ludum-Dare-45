@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   Name: Player
-  sprite: {fileID: 21300000, guid: 1c46b47451e0ee44fb5293e714454f4c, type: 3}
+  sprite: {fileID: 21300000, guid: f8c277d4c9475fb4e8acb53ac4005545, type: 3}
+  portraitSprite: {fileID: 21300000, guid: 760800adc2b00ac4aa868dbd1a9b80a2, type: 3}
   IsPlayer: 1

@@ -7,5 +7,6 @@ public class StoryCharacter : ScriptableObject
 {
     public string Name;
     public Sprite sprite;
+    public Sprite portraitSprite;
     public bool IsPlayer;
 }

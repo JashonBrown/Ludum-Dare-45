@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 28540f8c82335884ca634ecb95432f4e, type: 3}
-  m_Name: Bug Beard
+  m_Name: Bug 4
   m_EditorClassIdentifier: 
-  Name: Bug Beard
-  sprite: {fileID: 21300000, guid: c1fe821152cefae479cbb5b581b45b9f, type: 3}
+  Name: Bug 4
+  sprite: {fileID: 21300000, guid: d040cc38aab5a0b4696198df4fd8c35d, type: 3}
+  portraitSprite: {fileID: 21300000, guid: ddf874ba475f3bd4aa1a964144a3f34a, type: 3}
   IsPlayer: 0

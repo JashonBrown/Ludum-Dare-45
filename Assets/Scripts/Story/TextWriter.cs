@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Doozy.Engine.UI;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -12,6 +13,9 @@ public class TextWriter : MonoBehaviour
 
     public GameObject playerImageGo;
     public GameObject otherImageGo;
+
+    public GameObject yesBtn;
+    public GameObject noBtn;
 
     private Image _playerImage;
     private Image _otherImage;
@@ -27,8 +31,13 @@ public class TextWriter : MonoBehaviour
         _otherImage = otherImageGo.GetComponent<Image>();
     }
 
+    // ---------------------------------------------------------------------
+
     public void PrintText(string text, StoryCharacter speaker)
     {
+        yesBtn.SetActive(false);
+        noBtn.SetActive(false);
+
         fullText = text;
         currentText = "";
         _i = 0;
@@ -40,13 +49,28 @@ public class TextWriter : MonoBehaviour
         }
         else
         {
-            _otherImage.sprite = speaker.sprite;
+            _otherImage.sprite = speaker.portraitSprite;
             playerImageGo.SetActive(false);
             otherImageGo.SetActive(true);
         }
 
         StartCoroutine(WriteText());
     }
+
+    // ---------------------------------------------------------------------
+
+    public void ShowChoices()
+    {
+        _tmp.text = "";
+        fullText = "";
+        currentText = "";
+        yesBtn.SetActive(true);
+        noBtn.SetActive(true);
+        playerImageGo.SetActive(false);
+        otherImageGo.SetActive(false);
+    }
+
+    // ---------------------------------------------------------------------
 
     IEnumerator WriteText()
     {

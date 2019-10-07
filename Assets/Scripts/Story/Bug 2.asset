@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Bug 2
   m_EditorClassIdentifier: 
   Name: Bug 2
-  sprite: {fileID: 21300000, guid: 1a4895e7b6070ff439026a198d2b3dc8, type: 3}
+  sprite: {fileID: 21300000, guid: 979ab96a0b4c59f4bba6e1617b24c6f7, type: 3}
+  portraitSprite: {fileID: 21300000, guid: 306976e33eac970408bb28b3359bbf16, type: 3}
   IsPlayer: 0

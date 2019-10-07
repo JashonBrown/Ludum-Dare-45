@@ -12,6 +12,8 @@ public class StoryShip : MonoBehaviour
     public float backgroundSpeed;
     public float baseWaterSpeed;
 
+    public float distanceCovered = 0;
+
     private Rigidbody2D _rb;
     private Animator _animator;
 
@@ -22,15 +24,28 @@ public class StoryShip : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
+    // ---------------------------------------------------------------------
+
+    private void Start()
+    {
+        backgroundMaterial.mainTextureOffset = Vector2.zero;
+        waterMaterial.mainTextureOffset = Vector2.zero;
+    }
+
+    // ---------------------------------------------------------------------
+
     // Update is called once per frame
     void Update()
     {
-        _Move();
+        _CalcForce();
+
         _animator.SetFloat("Speed", currentForce/maxForce);
 
         var increment = new Vector2((currentForce / maxForce) * backgroundSpeed, 0);
 
         backgroundMaterial.mainTextureOffset += increment;
+
+        distanceCovered += (currentForce / maxForce) * backgroundSpeed;
 
         Vector2 waterIncrement;
 
@@ -44,13 +59,12 @@ public class StoryShip : MonoBehaviour
         waterMaterial.mainTextureOffset += waterIncrement;
     }
 
-    private void _Move()
+    // ---------------------------------------------------------------------
+
+    private void _CalcForce()
     {
-        if (!ObjectReferencer.Instance.CanMove) return;
-
-        if (Input.GetKey(KeyCode.D)) currentForce += forceIncrement;
+        if (ObjectReferencer.Instance.CanMove && Input.GetMouseButton(1) || ObjectReferencer.Instance.IsForcedMoving) currentForce += forceIncrement;
         else currentForce -= forceIncrement;
-
 
         if (currentForce > maxForce) currentForce = maxForce;
         if (currentForce < 0) currentForce = 0;
